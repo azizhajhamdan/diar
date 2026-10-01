@@ -5,6 +5,7 @@
 import { buildHomePage } from './home.js';
 import { buildBookingPage } from './booking.js';
 import { buildTrackPage } from './track.js';
+import { buildAdminPage } from '../admin/admin.js';
 import { DEFAULT_CMS } from '../data/cms.js';
 
 let currentRoute = 'home';
@@ -27,6 +28,14 @@ export function initRouter(cms) {
     navigateTo(hash, false);
   });
   
+  // دعم التحديث المباشر للرابط
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.replace('#', '') || 'home';
+    if (hash !== currentRoute) {
+      navigateTo(hash, false);
+    }
+  });
+  
   // الصفحة الأولية
   const initialHash = window.location.hash.replace('#', '') || 'home';
   navigateTo(initialHash, false);
@@ -44,7 +53,7 @@ export async function navigateTo(route, updateHistory = true) {
   const app = document.getElementById('app');
   if (!app) return;
   
-  // تحديث URL (بدون إعادة تحميل)
+  // تحديث URL
   if (updateHistory) {
     const newHash = route === 'home' ? '' : `#${route}`;
     history.pushState({ route }, '', newHash || window.location.pathname);
@@ -57,7 +66,9 @@ export async function navigateTo(route, updateHistory = true) {
   const cms = currentCMS || DEFAULT_CMS;
   
   try {
-    if (route === 'booking') {
+    if (route === 'admin') {
+      app.appendChild(buildAdminPage());
+    } else if (route === 'booking') {
       app.appendChild(await buildBookingPage(cms));
     } else if (route === 'track') {
       app.appendChild(await buildTrackPage(cms));
@@ -69,7 +80,11 @@ export async function navigateTo(route, updateHistory = true) {
     app.appendChild(buildHomePage(cms));
   }
   
-  // تحديث الـCMS عند التغيير
+  // حفظ الـCMS عند التغيير
+  if (cms !== currentCMS) {
+    currentCMS = cms;
+  }
+  
   window.scrollTo({ top: 0, behavior: 'auto' });
   
   // تشغيل الـanimations

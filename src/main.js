@@ -7,6 +7,7 @@ import { fetchREST } from './data/rest.js';
 import { DEFAULT_CMS } from './data/cms.js';
 import { loadSavedTheme } from './ui/header.js';
 import { initRouter } from './ui/router.js';
+import './styles/admin.css';
 
 console.log('🚀 ديّار - بدء التطبيق');
 
