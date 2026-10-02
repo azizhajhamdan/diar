@@ -570,25 +570,72 @@ function buildImageListField(label, images, onChange) {
     currentImages.forEach((img, i) => {
       const item = el('div', { class: 'cms-image-list-item' });
       
+      // الصورة المصغرة
       const thumb = el('div', { class: 'cms-image-thumb' });
       if (img) {
         thumb.appendChild(el('img', { src: withCacheBuster(img), alt: '' }));
       }
       item.appendChild(thumb);
       
+      // حقل الرابط
       const input = el('input', {
         type: 'text',
         class: 'cms-field-input',
+        placeholder: 'رابط الصورة أو ارفع',
         style: 'direction: ltr;'
       });
       input.value = img || '';
       input.addEventListener('input', () => {
         currentImages[i] = input.value;
         onChange(currentImages);
+        updateThumb(input.value);
         markChanged();
       });
       item.appendChild(input);
       
+      // زر الرفع
+      const uploadBtn = el('button', {
+        class: 'cms-upload-mini',
+        title: 'رفع صورة',
+        onclick: () => fileInput.click()
+      });
+      uploadBtn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>';
+      item.appendChild(uploadBtn);
+      
+      // input file مخفي
+      const fileInput = el('input', {
+        type: 'file',
+        accept: 'image/*',
+        style: 'display: none;'
+      });
+      fileInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        try {
+          thumb.innerHTML = '<div class="cms-loading-mini"></div>';
+          
+          const dataUrl = await processUploadedImage(file, {
+            maxWidth: 1200,
+            quality: 0.8
+          });
+          
+          currentImages[i] = dataUrl;
+          input.value = dataUrl;
+          onChange(currentImages);
+          updateThumb(dataUrl);
+          markChanged();
+          
+        } catch (error) {
+          alert('خطأ في رفع الصورة: ' + error.message);
+          updateThumb(input.value);
+        }
+        
+        fileInput.value = '';
+      });
+      item.appendChild(fileInput);
+      
+      // زر الحذف
       const removeBtn = el('button', {
         class: 'cms-remove-btn',
         onclick: () => {
@@ -601,6 +648,13 @@ function buildImageListField(label, images, onChange) {
       item.appendChild(removeBtn);
       
       list.appendChild(item);
+      
+      function updateThumb(src) {
+        thumb.innerHTML = '';
+        if (src) {
+          thumb.appendChild(el('img', { src: withCacheBuster(src), alt: '' }));
+        }
+      }
     });
   }
   
