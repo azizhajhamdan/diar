@@ -88,13 +88,14 @@ function buildHero(heroData) {
     }
   }, [heroData.cta1]));
   
-  cta.appendChild(el('button', {
-    class: 'btn btn-outline btn-lg',
-    onclick: () => {
-      const galleryEl = document.getElementById('gallery');
-      if (galleryEl) galleryEl.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [heroData.cta2]));
+ const cta2Btn = el('button', {
+  class: 'btn btn-outline btn-lg hero-cta-secondary',
+  onclick: () => {
+    const el = document.getElementById('gallery');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+}, [heroData.cta2]);
+cta.appendChild(cta2Btn);
   
   inner.appendChild(cta);
   section.appendChild(inner);

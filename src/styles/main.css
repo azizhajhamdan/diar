@@ -2334,3 +2334,35 @@ section {
   border-color: #ef4444;
   transform: rotate(90deg);
 }
+/* =============================================
+   زر Hero الثانوي
+   ============================================= */
+
+.hero-cta-secondary {
+  background: rgba(0, 0, 0, 0.24);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.hero-cta-secondary:hover {
+  background: rgba(0, 0, 0, 0.314);
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* في الوضع النهاري - يبقى واضحاً على الصورة */
+[data-theme="light"] .hero-cta-secondary {
+  background: rgba(0, 0, 0, 0.206);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+
+[data-theme="light"] .hero-cta-secondary:hover {
+  background: rgba(0, 0, 0, 0.212);
+  border-color: var(--gold);
+  color: var(--gold);
+}
