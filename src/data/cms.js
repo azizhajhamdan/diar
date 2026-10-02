@@ -123,7 +123,7 @@ export const DEFAULT_CMS = {
   // الخطوط
   fonts: {
     heading: 'Reem Kufi',
-    body: 'Cairo'
+    body: 'Tajawal'
   },
   
   // إظهار/إخفاء الأقسام
@@ -253,5 +253,6 @@ function notifyListeners() {
     }
   });
 }
+document.documentElement.style.setProperty('--font-logo', `'Reem Kufi', 'Cairo', sans-serif`);
 
 console.log('✓ cms.js محمّل');

@@ -3,15 +3,35 @@
 // =============================================
 
 import './styles/main.css';
+import './styles/admin.css';
 import { fetchREST } from './data/rest.js';
 import { DEFAULT_CMS } from './data/cms.js';
 import { loadSavedTheme } from './ui/header.js';
 import { initRouter } from './ui/router.js';
-import './styles/admin.css';
 
 console.log('🚀 ديّار - بدء التطبيق');
 
 loadSavedTheme();
+
+// =============================================
+// تطبيق الخطوط
+// =============================================
+
+function applyFonts(fonts) {
+  if (!fonts) return;
+  
+  const heading = fonts.heading || 'Reem Kufi';
+  const body = fonts.body || 'Cairo';
+  
+  document.documentElement.style.setProperty('--font-heading', `'${heading}', 'Cairo', sans-serif`);
+  document.documentElement.style.setProperty('--font-body', `'${body}', 'Cairo', sans-serif`);
+  
+  console.log(`✓ تم تطبيق الخطوط: ${heading} / ${body}`);
+}
+
+// =============================================
+// دمج عميق
+// =============================================
 
 function deepMerge(target, source) {
   const output = { ...target };
@@ -27,6 +47,10 @@ function deepMerge(target, source) {
   return output;
 }
 
+// =============================================
+// 1. عرض فوري
+// =============================================
+
 function showInstant() {
   setTimeout(() => {
     const loader = document.getElementById('loader');
@@ -35,6 +59,10 @@ function showInstant() {
   
   console.log('⚡ عرض فوري');
 }
+
+// =============================================
+// 2. تحديث من Firebase
+// =============================================
 
 async function updateFromFirebase() {
   try {
@@ -48,8 +76,13 @@ async function updateFromFirebase() {
     if (cmsData) {
       const mergedCMS = deepMerge(DEFAULT_CMS, cmsData);
       console.log('✓ CMS وصل');
+      
+      // ✅ تطبيق الخطوط
+      applyFonts(mergedCMS.fonts);
+      
       initRouter(mergedCMS);
     } else {
+      applyFonts(DEFAULT_CMS.fonts);
       initRouter(DEFAULT_CMS);
     }
     
@@ -57,9 +90,14 @@ async function updateFromFirebase() {
     
   } catch (error) {
     console.warn('⚠️ فشل جلب Firebase:', error.message);
+    applyFonts(DEFAULT_CMS.fonts);
     initRouter(DEFAULT_CMS);
   }
 }
+
+// =============================================
+// 3. Firebase SDK في الخلفية
+// =============================================
 
 async function loadFirebaseSDK() {
   try {
@@ -75,5 +113,6 @@ async function loadFirebaseSDK() {
   }
 }
 
+// 🚀 ابدأ!
 showInstant();
 updateFromFirebase();

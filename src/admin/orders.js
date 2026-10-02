@@ -148,35 +148,35 @@ function buildTable() {
     
     // الإجراءات
     const actionsTd = el('td', { class: 'admin-actions-cell' });
-    
-    // طباعة الفاتورة
-    const printBtn = el('button', {
-      class: 'admin-icon-btn print',
-      title: 'طباعة الفاتورة',
-      onclick: (e) => { e.stopPropagation(); printInvoice(order); }
-    });
-    printBtn.appendChild(svg(ICONS.print, { width: '2', size: '17' }));
-    actionsTd.appendChild(printBtn);
-    
-    // نسخ الرقم
-    const copyBtn = el('button', {
-      class: 'admin-icon-btn',
-      title: 'نسخ الرقم',
-      onclick: (e) => { e.stopPropagation(); copyToClipboard(order.id); }
-    });
-    copyBtn.appendChild(svg(ICONS.copy, { width: '2', size: '17' }));
-    actionsTd.appendChild(copyBtn);
-    
-    // حذف
-    const delBtn = el('button', {
-      class: 'admin-icon-btn danger',
-      title: 'حذف',
-      onclick: (e) => { e.stopPropagation(); deleteOrder(order); }
-    });
-    delBtn.appendChild(svg(ICONS.trash, { width: '2', size: '17' }));
-    actionsTd.appendChild(delBtn);
-    
-    row.appendChild(actionsTd);
+
+// طباعة
+const printBtn = el('button', {
+  class: 'admin-icon-btn print',
+  title: 'طباعة الفاتورة',
+  onclick: (e) => { e.stopPropagation(); printInvoice(order); }
+});
+printBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>';
+actionsTd.appendChild(printBtn);
+
+// نسخ
+const copyBtn = el('button', {
+  class: 'admin-icon-btn',
+  title: 'نسخ الرقم',
+  onclick: (e) => { e.stopPropagation(); copyToClipboard(order.id); }
+});
+copyBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+actionsTd.appendChild(copyBtn);
+
+// حذف
+const delBtn = el('button', {
+  class: 'admin-icon-btn danger',
+  title: 'حذف',
+  onclick: (e) => { e.stopPropagation(); deleteOrder(order); }
+});
+delBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>';
+actionsTd.appendChild(delBtn);
+
+row.appendChild(actionsTd);
     tbody.appendChild(row);
   });
   

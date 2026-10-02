@@ -150,9 +150,8 @@ function buildCategories(categoriesData) {
   categoriesData.forEach((cat) => {
     const card = el('div', {
       class: 'category-card',
-      onclick: () => {
-        console.log('فتح قسم:', cat.id);
-      }
+     onclick: () => openCategoryModal(cat)
+      
     });
     
     if (cat.cover) {
@@ -494,5 +493,140 @@ function buildFooter(cms) {
   
   return footer;
 }
+// =============================================
+// Modal عرض صور القسم
+// =============================================
+
+function openCategoryModal(category) {
+  // احذف أي modal موجود
+  const old = document.getElementById('category-modal');
+  if (old) old.remove();
+  
+  const modal = el('div', {
+    class: 'category-modal',
+    id: 'category-modal',
+    onclick: (e) => {
+      if (e.target === modal) closeCategoryModal();
+    }
+  });
+  
+  const inner = el('div', { class: 'category-modal-inner' });
+  
+  // زر الإغلاق
+  const closeBtn = el('button', {
+    class: 'category-modal-close',
+    onclick: closeCategoryModal,
+    'aria-label': 'إغلاق'
+  });
+  closeBtn.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  inner.appendChild(closeBtn);
+  
+  // Header
+  const header = el('div', { class: 'category-modal-header' });
+  header.appendChild(el('span', { class: 'category-modal-en' }, [category.en || '']));
+  header.appendChild(el('h2', { class: 'category-modal-title' }, [category.title || '']));
+  header.appendChild(el('p', { class: 'category-modal-desc' }, [category.desc || '']));
+  inner.appendChild(header);
+  
+  // Gallery
+  const images = category.images || [];
+  
+  if (images.length > 0) {
+    const gallery = el('div', { class: 'category-modal-gallery' });
+    
+    images.forEach((imgSrc, i) => {
+      if (!imgSrc) return;
+      
+      const item = el('div', { 
+        class: 'category-modal-item',
+        onclick: () => openLightbox(imgSrc, category.title)
+      });
+      
+      item.appendChild(el('img', {
+        src: withCacheBuster(imgSrc),
+        alt: category.title + ' ' + (i + 1),
+        loading: 'lazy'
+      }));
+      
+      gallery.appendChild(item);
+    });
+    
+    inner.appendChild(gallery);
+  } else {
+    inner.appendChild(el('div', { 
+      class: 'category-modal-empty',
+      style: 'text-align: center; padding: 60px 20px; color: #8a8070;'
+    }, ['لا توجد صور في هذا القسم بعد']));
+  }
+  
+  // زر الحجز
+  const cta = el('div', { class: 'category-modal-cta' });
+  const bookBtn = el('button', {
+    class: 'btn btn-primary btn-lg',
+    onclick: () => {
+      closeCategoryModal();
+      window.dispatchEvent(new CustomEvent('navigate', { detail: 'booking' }));
+    }
+  }, ['احجز ' + category.title + ' الآن']);
+  bookBtn.innerHTML += '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-inline-start:8px"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>';
+  cta.appendChild(bookBtn);
+  inner.appendChild(cta);
+  
+  modal.appendChild(inner);
+  document.body.appendChild(modal);
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCategoryModal() {
+  const modal = document.getElementById('category-modal');
+  if (modal) modal.remove();
+  document.body.style.overflow = '';
+}
+
+// =============================================
+// Lightbox (عرض صورة كاملة)
+// =============================================
+
+function openLightbox(src, title) {
+  const old = document.getElementById('lightbox');
+  if (old) old.remove();
+  
+  const lightbox = el('div', {
+    class: 'lightbox',
+    id: 'lightbox',
+    onclick: (e) => {
+      if (e.target === lightbox) closeLightbox();
+    }
+  });
+  
+  const img = el('img', {
+    src: withCacheBuster(src),
+    alt: title,
+    class: 'lightbox-img'
+  });
+  lightbox.appendChild(img);
+  
+  const closeBtn = el('button', {
+    class: 'lightbox-close',
+    onclick: closeLightbox
+  });
+  closeBtn.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  lightbox.appendChild(closeBtn);
+  
+  document.body.appendChild(lightbox);
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox) lightbox.remove();
+}
+
+// إغلاق بـ ESC
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeCategoryModal();
+    closeLightbox();
+  }
+});
 
 console.log('✓ home.js محمّل');

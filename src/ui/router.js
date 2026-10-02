@@ -67,7 +67,7 @@ export async function navigateTo(route, updateHistory = true) {
   
   try {
     if (route === 'admin') {
-      app.appendChild(buildAdminPage());
+  app.appendChild(await buildAdminPage());
     } else if (route === 'booking') {
       app.appendChild(await buildBookingPage(cms));
     } else if (route === 'track') {

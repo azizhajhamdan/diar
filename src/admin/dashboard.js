@@ -6,10 +6,25 @@ import { el } from '../utils/helpers.js';
 import { logout } from './auth.js';
 import { getOrders } from '../data/orders.js';
 import { buildOrdersContent } from './orders.js';
+import { buildCMSContent } from './cms.js';
 
 let currentTab = 'overview';
 
-export function buildAdminDashboard() {
+// =============================================
+// أيقونات
+// =============================================
+
+const TAB_ICONS = {
+  overview: 'M3 3v18h18M7 15l4-4 4 4 5-6',
+  orders: 'M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2',
+  cms: 'M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z'
+};
+
+// =============================================
+// Main
+// =============================================
+
+export async function buildAdminDashboard() {
   const page = el('div', { class: 'admin-page' });
   page.appendChild(buildTopBar());
   page.appendChild(buildTabs());
@@ -18,6 +33,9 @@ export function buildAdminDashboard() {
   
   if (currentTab === 'orders') {
     container.appendChild(buildOrdersContent());
+  } else if (currentTab === 'cms') {
+    const cmsContent = await buildCMSContent();
+    container.appendChild(cmsContent);
   } else {
     container.appendChild(buildOverview());
   }
@@ -26,16 +44,13 @@ export function buildAdminDashboard() {
   return page;
 }
 
-// =============================================
-// Tabs
-// =============================================
-
 function buildTabs() {
   const tabs = el('div', { class: 'admin-tabs' });
   
   const tabsList = [
-    { key: 'overview', label: 'نظرة عامة', icon: 'overview' },
-    { key: 'orders', label: 'الطلبات', icon: 'orders' }
+    { key: 'overview', label: 'نظرة عامة' },
+    { key: 'orders', label: 'الطلبات' },
+    { key: 'cms', label: 'المحتوى' }
   ];
   
   tabsList.forEach(tab => {
@@ -47,8 +62,9 @@ function buildTabs() {
       }
     });
     
-    const iconSpan = el('span', { class: `admin-tab-icon icon-${tab.icon}` });
-    btn.appendChild(iconSpan);
+    const icon = el('span', { class: 'admin-tab-icon' });
+    icon.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${TAB_ICONS[tab.key]}"/></svg>`;
+    btn.appendChild(icon);
     btn.appendChild(document.createTextNode(tab.label));
     
     tabs.appendChild(btn);
@@ -57,11 +73,12 @@ function buildTabs() {
   return tabs;
 }
 
-function rebuild() {
+async function rebuild() {
   const app = document.getElementById('app');
   if (!app) return;
   app.innerHTML = '';
-  app.appendChild(buildAdminDashboard());
+  const page = await buildAdminDashboard();
+  app.appendChild(page);
 }
 
 // =============================================
@@ -88,10 +105,7 @@ function buildOverview() {
   
   statsData.forEach(stat => {
     const card = el('div', { class: `admin-stat-card ${stat.variant}` });
-    
-    const numBox = el('div', { class: 'admin-stat-num' }, [String(stat.num)]);
-    card.appendChild(numBox);
-    
+    card.appendChild(el('div', { class: 'admin-stat-num' }, [String(stat.num)]));
     card.appendChild(el('div', { class: 'admin-stat-label' }, [stat.label]));
     stats.appendChild(card);
   });
@@ -101,7 +115,7 @@ function buildOverview() {
   const info = el('div', { class: 'admin-info-box' });
   info.innerHTML = `
     <h3>مرحباً بك في لوحة التحكم</h3>
-    <p>انتقل إلى تبويب "الطلبات" لإدارة طلبات العملاء، تحديث المراحل، وطباعة الفواتير.</p>
+    <p>انتقل إلى تبويب "الطلبات" لإدارة الطلبات، أو "المحتوى" لتعديل نصوص وصور الموقع.</p>
   `;
   wrap.appendChild(info);
   
