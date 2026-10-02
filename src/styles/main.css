@@ -2334,4 +2334,3 @@ section {
   border-color: #ef4444;
   transform: rotate(90deg);
 }
-document.documentElement.style.setProperty('--font-logo', `'Reem Kufi', 'Cairo', sans-serif`);
