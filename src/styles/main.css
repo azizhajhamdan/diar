@@ -2366,3 +2366,184 @@ section {
   border-color: var(--gold);
   color: var(--gold);
 }
+/* =============================================
+   الأنترو السريع - Compact Intro
+   ============================================= */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;                    /* ← رفعه لأعلى شيء */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);      /* ← معتم (يخفي كل شيء تحته) */
+  transition: opacity 0.6s ease, visibility 0.6s;
+  overflow: hidden;
+}
+
+#intro.hide {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* الأشكال الخلفية */
+#intro .bg-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+
+#intro .bg-shape.s1 {
+  top: -20%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, 
+    rgba(240, 198, 116, 0.15), 
+    transparent 70%);
+}
+
+#intro .bg-shape.s2 {
+  bottom: -20%;
+  right: -10%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, 
+    rgba(240, 198, 116, 0.1), 
+    transparent 70%);
+}
+
+#intro.phase-1 .bg-shape {
+  opacity: 1;
+}
+
+/* الشعار */
+#intro .logo-wrap {
+  position: relative;
+  text-align: center;
+  padding: 0 24px;
+  opacity: 0;
+  filter: blur(15px);
+  transform: scale(1.05);
+  transition: opacity 0.7s ease, filter 0.7s ease, transform 0.7s ease;
+}
+
+#intro.phase-2 .logo-wrap {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1);
+}
+
+#intro .logo-big {
+  font-family: var(--font-heading);
+  font-size: clamp(60px, 12vw, 100px);
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+#intro .logo-big .dot {
+  color: var(--gold-dark);
+}
+
+/* النص الفرعي */
+#intro .sub {
+  margin-top: 20px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+}
+
+#intro.phase-3 .sub {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#intro .sub .en {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.7em;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  padding: 0 12px;
+  opacity: 0.8;
+}
+
+#intro .sub .en::before,
+#intro .sub .en::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 24px;
+  height: 1px;
+  background: var(--gold-dark);
+  transform: translateY(-50%);
+  opacity: 0.6;
+}
+
+#intro .sub .en::before {
+  right: 100%;
+  margin-right: 8px;
+}
+
+#intro .sub .en::after {
+  left: 100%;
+  margin-left: 8px;
+}
+
+#intro .sub .ar {
+  margin-top: 12px;
+  font-size: 13px;
+  font-family: var(--font-heading);
+  color: var(--text-muted);
+}
+
+/* شريط التقدم */
+#intro .bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(240, 198, 116, 0.1);
+  overflow: hidden;
+}
+
+#intro .bar-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(to right, 
+    var(--gold-dark), 
+    var(--gold), 
+    var(--gold-dark));
+  transition: width 1.5s ease;
+}
+
+#intro.phase-1 .bar-fill {
+  width: 100%;
+}
+
+/* الموبايل */
+@media (max-width: 640px) {
+  #intro .logo-big {
+    font-size: 60px;
+  }
+  
+  #intro .sub .en {
+    font-size: 9px;
+    letter-spacing: 0.5em;
+  }
+  
+  #intro .sub .ar {
+    font-size: 12px;
+  }
+}

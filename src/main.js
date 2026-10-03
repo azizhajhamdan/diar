@@ -52,14 +52,23 @@ function deepMerge(target, source) {
 // =============================================
 
 function showInstant() {
-  setTimeout(() => {
-    const loader = document.getElementById('loader');
-    if (loader) loader.classList.add('hide');
-  }, 200);
-  
-  console.log('⚡ عرض فوري');
+  const intro = document.getElementById('intro');
+  if (intro) {
+    setTimeout(() => intro.classList.add('phase-1'), 100);
+    setTimeout(() => intro.classList.add('phase-2'), 400);
+    setTimeout(() => intro.classList.add('phase-3'), 800);
+    
+    // ابدأ الإخفاء في نفس لحظة بناء الموقع
+    setTimeout(() => intro.classList.add('hide'), 1600);
+    
+    // إزالة من DOM بعد انتهاء الإخفاء
+    setTimeout(() => {
+      if (intro) intro.style.display = 'none';
+    }, 2200);
+    
+    console.log('⚡ الأنترو');
+  }
 }
-
 // =============================================
 // 2. تحديث من Firebase
 // =============================================
@@ -73,25 +82,26 @@ async function updateFromFirebase() {
       fetchREST('orders')
     ]);
     
-    if (cmsData) {
-      const mergedCMS = deepMerge(DEFAULT_CMS, cmsData);
-      console.log('✓ CMS وصل');
-      
-      // ✅ تطبيق الخطوط
-      applyFonts(mergedCMS.fonts);
-      
-      initRouter(mergedCMS);
-    } else {
-      applyFonts(DEFAULT_CMS.fonts);
-      initRouter(DEFAULT_CMS);
-    }
+   
+        // ⏳ انتظر انتهاء الأنترو (1.6 ثانية)
+    setTimeout(() => {
+      if (cmsData) {
+        const mergedCMS = deepMerge(DEFAULT_CMS, cmsData);
+        console.log('✓ CMS وصل');
+        if (mergedCMS.fonts) applyFonts(mergedCMS.fonts);
+        initRouter(mergedCMS);
+      } else {
+        initRouter(DEFAULT_CMS);
+      }
+    }, 1600);
     
+    // Firebase SDK في الخلفية (لا يوقف)
     loadFirebaseSDK();
     
   } catch (error) {
     console.warn('⚠️ فشل جلب Firebase:', error.message);
-    applyFonts(DEFAULT_CMS.fonts);
-    initRouter(DEFAULT_CMS);
+    // حتى في الفشل — انتظر الأنترو
+    setTimeout(() => initRouter(DEFAULT_CMS), 1800);
   }
 }
 
