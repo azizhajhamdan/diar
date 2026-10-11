@@ -1,0 +1,229 @@
+/* =============================================
+   نظام الثيمات - Theme System
+   5 ثيمات كاملة - متغيرات موحّدة
+   ============================================= */
+
+/* ═══════════════════════════════════════
+   🎨 الذهبي (الافتراضي)
+   ═══════════════════════════════════════ */
+
+:root,
+[data-theme="gold"] {
+  /* الخلفيات */
+  --bg-primary: #0a0805;
+  --bg-secondary: #12100a;
+  --bg-tertiary: #1a1610;
+  
+  /* اللون الرئيسي */
+  --accent: #f0c674;
+  --accent-dark: #d4a73f;
+  --accent-soft: rgba(240, 198, 116, 0.08);
+  --accent-strong: rgba(240, 198, 116, 0.15);
+  --accent-glow: rgba(240, 198, 116, 0.3);
+  
+  /* النصوص */
+  --text-primary: #fcf8ee;
+  --text-secondary: #c4b898;
+  --text-muted: #8a8070;
+  
+  /* الحدود */
+  --border: rgba(240, 198, 116, 0.08);
+  --border-strong: rgba(240, 198, 116, 0.15);
+  
+  /* الظلال */
+  --shadow-soft: 0 20px 60px -20px rgba(0, 0, 0, 0.4);
+  --shadow-strong: 0 30px 80px -30px rgba(0, 0, 0, 0.6);
+  
+  /* الفوتر */
+  --footer-bg: #050402;
+  --footer-text: #fcf8ee;
+  
+  /* Hero Overlay */
+  --hero-overlay: linear-gradient(
+    180deg,
+    rgba(10, 8, 5, 0.88),
+    rgba(30, 20, 10, 0.65) 50%,
+    rgba(10, 8, 5, 0.92)
+  );
+  
+  /* الحالة */
+  --mode: 'dark';
+  --glass: 1;
+  --glass-blur: 20px;
+}
+
+/* ═══════════════════════════════════════
+   🌿 الزيتي - خلفية بيضاء فاخرة
+   ═══════════════════════════════════════ */
+
+[data-theme="olive"] {
+  /* الخلفيات */
+  --bg-primary: #f8f6f0;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f0ede4;
+  
+  /* اللون الرئيسي */
+  --accent: #2d3d28;
+  --accent-dark: #1f2b1c;
+  --accent-soft: rgba(45, 61, 40, 0.08);
+  --accent-strong: rgba(45, 61, 40, 0.15);
+  --accent-glow: rgba(45, 61, 40, 0.15);
+  
+  /* النصوص */
+  --text-primary: #1a2018;
+  --text-secondary: #4a5545;
+  --text-muted: #7a8575;
+  
+  /* الحدود */
+  --border: rgba(45, 61, 40, 0.08);
+  --border-strong: rgba(45, 61, 40, 0.15);
+  
+  /* الظلال */
+  --shadow-soft: 0 4px 20px -4px rgba(45, 61, 40, 0.08);
+  --shadow-strong: 0 8px 30px -8px rgba(45, 61, 40, 0.12);
+  
+  /* الفوتر */
+  --footer-bg: #1a2018;
+  --footer-text: #f8f6f0;
+  
+  /* Hero Overlay */
+  --hero-overlay: linear-gradient(
+    180deg,
+    rgba(248, 246, 240, 0.85),
+    rgba(240, 237, 228, 0.6) 50%,
+    rgba(248, 246, 240, 0.9)
+  );
+  
+  /* الحالة */
+  --mode: 'light';
+  --glass: 0;
+  --glass-blur: 0px;
+}
+
+/* ═══════════════════════════════════════
+   🍷 البرقندي
+   ═══════════════════════════════════════ */
+
+[data-theme="burgundy"] {
+  --bg-primary: #0f0808;
+  --bg-secondary: #180e0e;
+  --bg-tertiary: #201414;
+  --accent: #d4a0a0;
+  --accent-dark: #b07878;
+  --accent-soft: rgba(212, 160, 160, 0.08);
+  --accent-strong: rgba(212, 160, 160, 0.15);
+  --accent-glow: rgba(212, 160, 160, 0.3);
+  --text-primary: #fcf0f0;
+  --text-secondary: #c4b0b0;
+  --text-muted: #8a7070;
+  --border: rgba(212, 160, 160, 0.08);
+  --border-strong: rgba(212, 160, 160, 0.15);
+  --shadow-soft: 0 20px 60px -20px rgba(15, 0, 0, 0.4);
+  --shadow-strong: 0 30px 80px -30px rgba(15, 0, 0, 0.6);
+  --footer-bg: #050202;
+  --footer-text: #fcf0f0;
+  --hero-overlay: linear-gradient(180deg, rgba(15, 8, 8, 0.88), rgba(30, 15, 15, 0.65) 50%, rgba(15, 8, 8, 0.92));
+  --mode: 'dark';
+  --glass: 1;
+  --glass-blur: 20px;
+}
+
+/* ═══════════════════════════════════════
+   🔵 الأزرق الملكي
+   ═══════════════════════════════════════ */
+
+[data-theme="royal"] {
+  --bg-primary: #080a0f;
+  --bg-secondary: #0e1218;
+  --bg-tertiary: #141820;
+  --accent: #a0b8d4;
+  --accent-dark: #7898b8;
+  --accent-soft: rgba(160, 184, 212, 0.08);
+  --accent-strong: rgba(160, 184, 212, 0.15);
+  --accent-glow: rgba(160, 184, 212, 0.3);
+  --text-primary: #f0f4fc;
+  --text-secondary: #b0b8c4;
+  --text-muted: #707880;
+  --border: rgba(160, 184, 212, 0.08);
+  --border-strong: rgba(160, 184, 212, 0.15);
+  --shadow-soft: 0 20px 60px -20px rgba(0, 0, 15, 0.4);
+  --shadow-strong: 0 30px 80px -30px rgba(0, 0, 15, 0.6);
+  --footer-bg: #020305;
+  --footer-text: #f0f4fc;
+  --hero-overlay: linear-gradient(180deg, rgba(8, 10, 15, 0.88), rgba(15, 20, 30, 0.65) 50%, rgba(8, 10, 15, 0.92));
+  --mode: 'dark';
+  --glass: 1;
+  --glass-blur: 20px;
+}
+
+/* ═══════════════════════════════════════
+   🏺 الياجوري
+   ═══════════════════════════════════════ */
+
+[data-theme="yagouri"] {
+  --bg-primary: #1a0f0a;
+  --bg-secondary: #221610;
+  --bg-tertiary: #2a1c16;
+  --accent: #c98878;
+  --accent-dark: #a86858;
+  --accent-soft: rgba(201, 136, 120, 0.08);
+  --accent-strong: rgba(201, 136, 120, 0.15);
+  --accent-glow: rgba(201, 136, 120, 0.3);
+  --text-primary: #fcf5f0;
+  --text-secondary: #c4b0a8;
+  --text-muted: #8a7068;
+  --border: rgba(201, 136, 120, 0.08);
+  --border-strong: rgba(201, 136, 120, 0.15);
+  --shadow-soft: 0 20px 60px -20px rgba(20, 10, 0, 0.4);
+  --shadow-strong: 0 30px 80px -30px rgba(20, 10, 0, 0.6);
+  --footer-bg: #0a0503;
+  --footer-text: #fcf5f0;
+  --hero-overlay: linear-gradient(180deg, rgba(26, 15, 10, 0.88), rgba(40, 25, 20, 0.65) 50%, rgba(26, 15, 10, 0.92));
+  --mode: 'dark';
+  --glass: 1;
+  --glass-blur: 20px;
+}
+
+/* ═══════════════════════════════════════
+   إزالة Liquid Glass من الثيمات الفاتحة
+   ═══════════════════════════════════════ */
+
+[data-theme="olive"] *,
+[data-theme="olive"] *::before,
+[data-theme="olive"] *::after {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ═══════════════════════════════════════
+   Typography
+   ═══════════════════════════════════════ */
+
+:root {
+  --font-logo: 'Reem Kufi', 'Cairo', sans-serif;
+  --font-heading: 'Reem Kufi', 'Cairo', sans-serif;
+  --font-body: 'Cairo', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Amiri', serif;
+}
+
+/* ═══════════════════════════════════════
+   Animations Easing
+   ═══════════════════════════════════════ */
+
+:root {
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ═══════════════════════════════════════
+   Breakpoints (للاستخدام المستقبلي)
+   ═══════════════════════════════════════ */
+
+:root {
+  --bp-mobile: 640px;
+  --bp-tablet: 768px;
+  --bp-desktop: 1024px;
+  --bp-wide: 1440px;
+}

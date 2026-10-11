@@ -1,0 +1,456 @@
+/* =============================================
+   Track - صفحة التتبع
+   ============================================= */
+
+.page-track {
+  min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════
+   Search Box - حقل البحث
+   ═══════════════════════════════════════ */
+
+.track-search-pro {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+@media (min-width: 640px) {
+  .track-search-pro {
+    flex-direction: row;
+  }
+}
+
+.track-search-pro input {
+  flex: 1;
+  min-width: 0;
+  padding: 15px 22px;
+  border-radius: 14px;
+  border: 2px solid var(--border-strong);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 15px;
+  outline: none;
+  font-family: var(--font-sans);
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  direction: ltr;
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  .track-search-pro input {
+    padding: 18px 26px;
+    border-radius: 16px;
+    font-size: 16px;
+  }
+}
+
+.track-search-pro input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.track-search-pro input::placeholder {
+  color: var(--text-muted);
+}
+
+.track-search-pro .btn {
+  border-radius: 14px;
+  padding: 15px 26px;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .track-search-pro .btn {
+    border-radius: 16px;
+    padding: 18px 30px;
+  }
+}
+
+/* ═══════════════════════════════════════
+   Result Card - بطاقة النتيجة
+   ═══════════════════════════════════════ */
+
+.track-result-pro {
+  background: var(--bg-secondary);
+  border-radius: 22px;
+  padding: 24px 18px;
+  border: 1px solid var(--border);
+  margin-top: 24px;
+  animation: slideUp 0.5s var(--ease);
+  box-shadow: var(--shadow-soft);
+}
+
+@media (min-width: 768px) {
+  .track-result-pro {
+    padding: 36px 28px;
+    border-radius: 24px;
+  }
+}
+
+/* ═══ Header ═══ */
+
+.track-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 22px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.track-order-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.track-order-id {
+  font-family: var(--font-sans);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--accent);
+  direction: ltr;
+  letter-spacing: 0.05em;
+}
+
+@media (min-width: 768px) {
+  .track-order-id {
+    font-size: 28px;
+  }
+}
+
+.track-status-pill {
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  color: var(--bg-primary);
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+@media (min-width: 768px) {
+  .track-status-pill {
+    padding: 11px 22px;
+    font-size: 13px;
+  }
+}
+
+/* ═══ Type Badge ═══ */
+
+.track-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-strong);
+}
+
+/* ═══════════════════════════════════════
+   Progress Bar
+   ═══════════════════════════════════════ */
+
+.track-progress-wrap {
+  margin-bottom: 28px;
+}
+
+.track-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.track-progress-header .pct {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  color: var(--accent);
+  font-size: 15px;
+}
+
+.track-progress-bar {
+  height: 10px;
+  background: var(--bg-tertiary);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.track-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-dark));
+  background-size: 200% 100%;
+  border-radius: 999px;
+  transition: width 1.8s var(--ease);
+  animation: shimmer 3s linear infinite;
+}
+
+/* ═══════════════════════════════════════
+   Timeline - المراحل
+   ═══════════════════════════════════════ */
+
+.track-timeline {
+  position: relative;
+  padding-inline-start: 6px;
+}
+
+.track-step {
+  position: relative;
+  padding-inline-start: 46px;
+  padding-bottom: 26px;
+}
+
+@media (min-width: 768px) {
+  .track-step {
+    padding-inline-start: 52px;
+    padding-bottom: 30px;
+  }
+}
+
+.track-step:last-child {
+  padding-bottom: 0;
+}
+
+.track-step::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 16px;
+  top: 38px;
+  bottom: 0;
+  width: 2px;
+  background: var(--border-strong);
+  z-index: 0;
+}
+
+@media (min-width: 768px) {
+  .track-step::before {
+    inset-inline-start: 17px;
+    top: 42px;
+  }
+}
+
+.track-step.done::before {
+  background: linear-gradient(to bottom, var(--accent-dark), var(--accent));
+}
+
+.track-step.current::before {
+  background: linear-gradient(to bottom, var(--accent), var(--border-strong));
+}
+
+.track-step:last-child::before {
+  display: none;
+}
+
+/* ═══ Step Dot ═══ */
+
+.track-step .step-dot {
+  position: absolute;
+  inset-inline-start: 0;
+  top: 3px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 12px;
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .track-step .step-dot {
+    width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+}
+
+.track-step .step-dot svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 3;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.track-step.done .step-dot {
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  border-color: var(--accent);
+  color: var(--bg-primary);
+}
+
+.track-step.current .step-dot {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  border-color: var(--accent);
+  color: var(--bg-primary);
+  box-shadow: 0 0 0 5px var(--accent-soft);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ═══ Step Label / Desc ═══ */
+
+.track-step .step-label {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+
+@media (min-width: 768px) {
+  .track-step .step-label {
+    font-size: 16px;
+  }
+}
+
+.track-step:not(.done):not(.current) .step-label {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.track-step .step-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.track-step.done .step-label {
+  color: var(--accent);
+}
+
+.track-step.current .step-label {
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════
+   Customer Info
+   ═══════════════════════════════════════ */
+
+.customer-info-card {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px 18px;
+  margin-top: 26px;
+}
+
+.customer-info-card h4 {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.customer-info-card h4 svg {
+  width: 17px;
+  height: 17px;
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 2;
+}
+
+.customer-info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 11px;
+}
+
+@media (min-width: 640px) {
+  .customer-info-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+.customer-info-item {
+  padding: 12px 14px;
+  background: var(--bg-secondary);
+  border-radius: 11px;
+  border: 1px solid var(--border);
+}
+
+.customer-info-item .label {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 5px;
+}
+
+.customer-info-item .value {
+  font-size: 13px;
+  color: var(--text-primary);
+  font-weight: 600;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.customer-info-item .value.ltr {
+  direction: ltr;
+  text-align: right;
+}
+
+.customer-info-item.full {
+  grid-column: 1 / -1;
+}
+
+/* ═══════════════════════════════════════
+   Error State - حالة الخطأ
+   ═══════════════════════════════════════ */
+
+.track-error {
+  text-align: center;
+  padding: 60px 20px;
+  animation: slideUp 0.4s var(--ease);
+}
+
+.track-error-icon {
+  font-size: 56px;
+  margin-bottom: 20px;
+  opacity: 0.4;
+}
+
+.track-error h3 {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 700;
+  color: #ef4444;
+  margin-bottom: 12px;
+}
+
+.track-error p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 400px;
+  margin: 0 auto;
+}

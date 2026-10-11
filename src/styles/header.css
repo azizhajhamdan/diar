@@ -1,0 +1,339 @@
+/* =============================================
+   Header - الهيدر
+   ============================================= */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20px 0;
+  transition: all 0.35s var(--ease);
+  border-bottom: 1px solid transparent;
+}
+
+.header.scrolled {
+  padding: 12px 0;
+  background: color-mix(in srgb, var(--bg-primary) 94%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom-color: var(--border);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+}
+
+/* للثيمات الفاتحة - بدون blur */
+[data-theme="olive"] .header.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 2px 12px rgba(45, 61, 40, 0.06);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* ═══ الشعار ═══ */
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.3s var(--ease);
+  text-decoration: none;
+}
+
+.nav-logo:hover {
+  transform: scale(1.02);
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.logo span {
+  color: var(--accent-dark);
+}
+
+.logo-sub {
+  display: block;
+  font-size: 0.28em;
+  letter-spacing: 0.3em;
+  color: var(--text-muted);
+  margin-top: 0.5em;
+}
+
+@media (min-width: 768px) {
+  .logo {
+    font-size: 32px;
+  }
+}
+
+/* ═══ روابط التنقل ═══ */
+
+.nav-links {
+  display: none;
+  align-items: center;
+  gap: 2px;
+}
+
+@media (min-width: 1024px) {
+  .nav-links {
+    display: flex;
+  }
+}
+
+.nav-links a {
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-radius: 999px;
+  transition: all 0.25s var(--ease-soft);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* ═══ أزرار الإجراءات ═══ */
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ═══ Icon Button ═══ */
+
+.icon-btn {
+  padding: 11px;
+  border-radius: 50%;
+  color: var(--text-secondary);
+  transition: all 0.25s var(--ease-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+/* ═══ Mobile Toggle ═══ */
+
+.mobile-toggle {
+  display: flex;
+}
+
+@media (min-width: 1024px) {
+  .mobile-toggle {
+    display: none;
+  }
+}
+
+/* ═══ SVG Icons ═══ */
+
+svg.i {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════
+   Mobile Menu - القائمة الجوال
+   ═══════════════════════════════════════ */
+
+#mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+#mobile-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#mobile-menu .bg {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-primary);
+}
+
+#mobile-menu .inner {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  transform: translateX(-100%);
+  transition: transform 0.45s var(--ease);
+  overflow-y: auto;
+}
+
+#mobile-menu.open .inner {
+  transform: translateX(0);
+}
+
+#mobile-menu .top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 48px;
+}
+
+#mobile-menu nav {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+#mobile-menu nav a {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: all 0.25s var(--ease-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#mobile-menu nav a:hover {
+  color: var(--accent);
+  padding-inline-start: 8px;
+}
+
+#mobile-menu nav a svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#mobile-menu .foot {
+  padding-top: 32px;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ═══ الفوتر الكامل ═══ */
+
+.footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--accent), transparent);
+  opacity: 0.4;
+}
+
+.footer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  inset-inline-end: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, var(--accent-soft), transparent 70%);
+  pointer-events: none;
+}
+
+.footer-wrap {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 60px 20px 32px;
+  position: relative;
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  .footer-wrap {
+    padding: 80px 32px 40px;
+  }
+}
+
+/* الفوتر المبسط */
+.footer-brand {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.footer-logo {
+  font-family: var(--font-heading);
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-block;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, var(--footer-text) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-logo .dot {
+  -webkit-text-fill-color: var(--accent);
+  color: var(--accent);
+}
+
+.footer-brand p {
+  color: color-mix(in srgb, var(--footer-text) 65%, transparent);
+  line-height: 1.9;
+  font-size: 13.5px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.footer-copy {
+  text-align: center;
+  padding-top: 28px;
+  border-top: 1px solid color-mix(in srgb, var(--footer-text) 8%, transparent);
+  font-size: 12.5px;
+  color: color-mix(in srgb, var(--footer-text) 50%, transparent);
+}

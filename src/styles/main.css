@@ -1,0 +1,20 @@
+/* =============================================
+   Main Styles - يستورد كل ملفات CSS
+   ============================================= */
+
+/* ═══ الأساسيات ═══ */
+@import './variables.css';
+@import './base.css';
+
+/* ═══ المكونات ═══ */
+@import './components.css';
+@import './header.css';
+
+/* ═══ الصفحات ═══ */
+@import './home.css';
+@import './booking.css';
+@import './track.css';
+
+/* ═══ اللوحة والفاتورة ═══ */
+@import './admin.css';
+@import './invoice.css';
