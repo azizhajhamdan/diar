@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ديّار — تجربة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0805;
+  --bg-2: #12100a;
+  --gold: #f0c674;
+  --bronze: #b8935a;
+  --cream: #fcf8ee;
+  --muted: #7a6a50;
+}
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Cairo', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ═══════════════════════════════════
+   العالم 1: الدخول
+   ═══════════════════════════════════ */
+
+.world-enter {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: radial-gradient(ellipse at center, #1a1408 0%, #0a0805 70%);
+}
+
+.world-enter::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(240,198,116,0.08) 0%, transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(184,147,90,0.06) 0%, transparent 50%);
+  animation: breathe 6s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.enter-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.8s cubic-bezier(.16,1,.3,1);
+}
+
+.world-enter:hover .enter-content {
+  transform: scale(1.05);
+}
+
+.enter-hint {
+  font-size: 13px;
+  letter-spacing: 0.5em;
+  color: var(--bronze);
+  margin-bottom: 30px;
+  font-weight: 300;
+  opacity: 0.7;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.9; }
+}
+
+.enter-icon {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(240,198,116,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.6s cubic-bezier(.16,1,.3,1);
+}
+
+.enter-icon::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.6s cubic-bezier(.16,1,.3,1);
+}
+
+.world-enter:hover .enter-icon {
+  border-color: var(--gold);
+  transform: scale(1.1);
+}
+
+.world-enter:hover .enter-icon::before {
+  opacity: 0.3;
+  transform: scale(1.3);
+}
+
+.enter-icon svg {
+  width: 40px;
+  height: 40px;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.enter-brand {
+  font-size: 72px;
+  font-weight: 900;
+  color: var(--cream);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+}
+
+.enter-brand .dot {
+  color: var(--gold);
+}
+
+.enter-tagline {
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0.3em;
+  font-weight: 300;
+}
+
+/* ═══════════════════════════════════
+   العالم 2: المساحة
+   ═══════════════════════════════════ */
+
+.world-space {
+  min-height: 100vh;
+  padding: 100px 0;
+  background: var(--bg);
+  display: none;
+}
+
+.space-header {
+  text-align: center;
+  margin-bottom: 80px;
+  padding: 0 20px;
+}
+
+.space-header .num {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--bronze);
+  letter-spacing: 0.5em;
+  margin-bottom: 16px;
+}
+
+.space-header h2 {
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.space-header h2 .gold {
+  color: var(--gold);
+}
+
+.space-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.space-item {
+  aspect-ratio: 4/5;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background: var(--bg-2);
+  transition: transform 0.6s cubic-bezier(.16,1,.3,1);
+}
+
+.space-item:hover {
+  transform: translateY(-8px);
+}
+
+.space-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(.16,1,.3,1);
+}
+
+.space-item:hover img {
+  transform: scale(1.08);
+}
+
+.space-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(10,8,5,0.9) 100%);
+}
+
+.space-item-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px;
+  z-index: 2;
+}
+
+.space-item-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 0.4em;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.space-item-title {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.space-item-desc {
+  font-size: 13px;
+  color: rgba(252,248,238,0.7);
+  line-height: 1.7;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.5s cubic-bezier(.16,1,.3,1);
+}
+
+.space-item:hover .space-item-desc {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════
+   العالم 3: الحكاية
+   ═══════════════════════════════════ */
+
+.world-story {
+  min-height: 100vh;
+  padding: 100px 0;
+  background: var(--bg-2);
+  display: none;
+}
+
+.story-nav {
+  max-width: 1200px;
+  margin: 0 auto 60px;
+  padding: 0 40px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.story-dot {
+  width: 40px;
+  height: 3px;
+  background: var(--muted);
+  border-radius: 2px;
+  transition: all 0.5s cubic-bezier(.16,1,.3,1);
+  opacity: 0.3;
+}
+
+.story-dot.active {
+  background: var(--gold);
+  opacity: 1;
+  width: 80px;
+}
+
+.story-card {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.story-img {
+  aspect-ratio: 4/5;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+}
+
+.story-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.story-text {
+  padding: 40px 0;
+}
+
+.story-text .num {
+  font-family: 'Inter', sans-serif;
+  font-size: 100px;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 20px;
+  opacity: 0.2;
+}
+
+.story-text h3 {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+.story-text h3 .gold {
+  color: var(--gold);
+}
+
+.story-text p {
+  font-size: 15px;
+  line-height: 1.9;
+  color: rgba(252,248,238,0.7);
+  margin-bottom: 30px;
+}
+
+.story-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.story-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid rgba(240,198,116,0.3);
+  background: transparent;
+  color: var(--gold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-size: 20px;
+}
+
+.story-btn:hover {
+  background: var(--gold);
+  color: var(--bg);
+  border-color: var(--gold);
+}
+
+/* ═══════════════════════════════════
+   العالم 4: الطلب
+   ═══════════════════════════════════ */
+
+.world-order {
+  min-height: 100vh;
+  padding: 100px 0;
+  background: var(--bg);
+  display: none;
+}
+
+.order-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.order-header {
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.order-header .num {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--bronze);
+  letter-spacing: 0.5em;
+  margin-bottom: 16px;
+}
+
+.order-header h2 {
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.order-header p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.order-box {
+  background: var(--bg-2);
+  border-radius: 28px;
+  padding: 48px;
+  border: 1px solid rgba(240,198,116,0.1);
+}
+
+.order-question {
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(240,198,116,0.08);
+}
+
+.order-question:last-of-type {
+  border-bottom: none;
+  margin-bottom: 32px;
+  padding-bottom: 0;
+}
+
+.order-q-label {
+  font-size: 13px;
+  color: var(--bronze);
+  letter-spacing: 0.2em;
+  margin-bottom: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.order-q-label .num {
+  font-family: 'Inter', sans-serif;
+  color: var(--gold);
+  font-weight: 900;
+}
+
+.order-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.order-option {
+  padding: 20px 24px;
+  border-radius: 16px;
+  border: 1.5px solid rgba(240,198,116,0.15);
+  background: transparent;
+  color: var(--cream);
+  cursor: pointer;
+  text-align: right;
+  font-family: 'Cairo', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 0.3s cubic-bezier(.16,1,.3,1);
+}
+
+.order-option:hover {
+  border-color: var(--gold);
+  background: rgba(240,198,116,0.05);
+}
+
+.order-option.active {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--bg);
+}
+
+.order-input {
+  width: 100%;
+  padding: 20px 24px;
+  border-radius: 16px;
+  border: 1.5px solid rgba(240,198,116,0.15);
+  background: transparent;
+  color: var(--cream);
+  font-family: 'Cairo', sans-serif;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.order-input:focus {
+  border-color: var(--gold);
+  background: rgba(240,198,116,0.03);
+}
+
+.order-input::placeholder {
+  color: var(--muted);
+}
+
+.order-submit {
+  width: 100%;
+  padding: 24px;
+  border-radius: 16px;
+  border: none;
+  background: var(--gold);
+  color: var(--bg);
+  font-family: 'Cairo', sans-serif;
+  font-size: 17px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(.16,1,.3,1);
+  letter-spacing: 0.05em;
+}
+
+.order-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px -10px rgba(240,198,116,0.4);
+}
+
+/* ═══════════════════════════════════
+   العالم 5: المتابعة
+   ═══════════════════════════════════ */
+
+.world-trace {
+  min-height: 100vh;
+  padding: 100px 0;
+  background: var(--bg-2);
+  display: none;
+}
+
+.trace-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.trace-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.trace-header .num {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--bronze);
+  letter-spacing: 0.5em;
+  margin-bottom: 16px;
+}
+
+.trace-header h2 {
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.trace-input-wrap {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 60px;
+}
+
+.trace-input {
+  flex: 1;
+  padding: 20px 28px;
+  border-radius: 16px;
+  border: 1.5px solid rgba(240,198,116,0.15);
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  outline: none;
+  letter-spacing: 0.1em;
+  direction: ltr;
+  text-align: center;
+}
+
+.trace-input:focus {
+  border-color: var(--gold);
+}
+
+.trace-btn {
+  padding: 20px 40px;
+  border-radius: 16px;
+  border: none;
+  background: var(--gold);
+  color: var(--bg);
+  font-family: 'Cairo', sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.trace-btn:hover {
+  transform: translateY(-2px);
+}
+
+.trace-map {
+  background: var(--bg);
+  border-radius: 24px;
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.trace-line {
+  position: absolute;
+  top: 50%;
+  right: 15%;
+  left: 15%;
+  height: 2px;
+  background: rgba(240,198,116,0.1);
+}
+
+.trace-line-fill {
+  height: 100%;
+  width: 50%;
+  background: linear-gradient(90deg, var(--gold), var(--bronze));
+  border-radius: 2px;
+  transition: width 2s cubic-bezier(.16,1,.3,1);
+}
+
+.trace-points {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.trace-point {
+  text-align: center;
+  flex: 1;
+}
+
+.trace-point-dot {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--bg-2);
+  border: 2px solid rgba(240,198,116,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: 16px;
+  color: var(--muted);
+  transition: all 0.5s cubic-bezier(.16,1,.3,1);
+}
+
+.trace-point.done .trace-point-dot {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--bg);
+}
+
+.trace-point.current .trace-point-dot {
+  background: var(--bg);
+  border-color: var(--gold);
+  color: var(--gold);
+  box-shadow: 0 0 0 8px rgba(240,198,116,0.1);
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 0 8px rgba(240,198,116,0.1); }
+  50% { box-shadow: 0 0 0 16px rgba(240,198,116,0.05); }
+}
+
+.trace-point-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.trace-point.done .trace-point-label,
+.trace-point.current .trace-point-label {
+  color: var(--gold);
+}
+
+/* ═══════════════════════════════════
+   Navigation
+   ═══════════════════════════════════ */
+
+.nav-fixed {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10,8,5,0.95);
+  border: 1px solid rgba(240,198,116,0.15);
+  border-radius: 100px;
+  padding: 10px;
+  display: none;
+  gap: 4px;
+  z-index: 1000;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.nav-fixed.show {
+  display: flex;
+}
+
+.nav-btn {
+  padding: 12px 24px;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-family: 'Cairo', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(.16,1,.3,1);
+}
+
+.nav-btn:hover {
+  color: var(--cream);
+}
+
+.nav-btn.active {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+/* ═══════════════════════════════════
+   Utility
+   ═══════════════════════════════════ */
+
+.world { display: none; }
+.world.active { display: block; animation: fadeIn 0.6s ease; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .enter-brand { font-size: 56px; }
+  .space-container { grid-template-columns: 1fr; padding: 0 20px; }
+  .story-card { grid-template-columns: 1fr; gap: 30px; padding: 0 20px; }
+  .space-header h2, .order-header h2, .trace-header h2 { font-size: 32px; }
+  .order-container, .trace-container { padding: 0 20px; }
+  .order-box { padding: 32px 24px; }
+  .order-options { grid-template-columns: 1fr; }
+  .story-text .num { font-size: 60px; }
+  .story-text h3 { font-size: 26px; }
+  .trace-input-wrap { flex-direction: column; }
+  .trace-map { padding: 32px 20px; }
+  .trace-point-dot { width: 44px; height: 44px; font-size: 13px; }
+  .trace-point-label { font-size: 11px; }
+  .nav-btn { padding: 10px 16px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ العالم 1: الدخول ═══════════ -->
+<div class="world active" id="world-enter">
+  <div class="world-enter" onclick="enter()">
+    <div class="enter-content">
+      <div class="enter-hint">AD 2026</div>
+      <div class="enter-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+          <polyline points="10 17 15 12 10 7"/>
+          <line x1="15" y1="12" x2="3" y2="12"/>
+        </svg>
+      </div>
+      <div class="enter-brand">ديّار<span class="dot">.</span></div>
+      <div class="enter-tagline">نصنع من المكان حكاية</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ العالم 2: المساحة ═══════════ -->
+<div class="world" id="world-space">
+  <div class="world-space">
+    <div class="space-header">
+      <div class="num">02 / 05</div>
+      <h2>المساحات <span class="gold">الأربع</span></h2>
+    </div>
+    <div class="space-container">
+      <div class="space-item">
+        <img src="https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1000&q=85" alt="">
+        <div class="space-item-content">
+          <div class="space-item-num">01</div>
+          <div class="space-item-title">صالونات</div>
+          <div class="space-item-desc">تصاميم فاخرة بقماش وتنجيد احترافي</div>
+        </div>
+      </div>
+      <div class="space-item">
+        <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1000&q=85" alt="">
+        <div class="space-item-content">
+          <div class="space-item-num">02</div>
+          <div class="space-item-title">جلسات</div>
+          <div class="space-item-desc">جلسات أرضية عصرية بأقمشة فاخرة</div>
+        </div>
+      </div>
+      <div class="space-item">
+        <img src="https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=1000&q=85" alt="">
+        <div class="space-item-content">
+          <div class="space-item-num">03</div>
+          <div class="space-item-title">ستائر</div>
+          <div class="space-item-desc">ستائر حديثة بأقمشة مختارة بعناية</div>
+        </div>
+      </div>
+      <div class="space-item">
+        <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1000&q=85" alt="">
+        <div class="space-item-content">
+          <div class="space-item-num">04</div>
+          <div class="space-item-title">أقمشة</div>
+          <div class="space-item-desc">خامات فاخرة للتفصيل والتنجيد</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ العالم 3: الحكاية ═══════════ -->
+<div class="world" id="world-story">
+  <div class="world-story">
+    <div class="story-nav">
+      <div class="story-dot active"></div>
+      <div class="story-dot"></div>
+      <div class="story-dot"></div>
+    </div>
+    <div class="story-card">
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1000&q=85" alt="">
+      </div>
+      <div class="story-text">
+        <div class="num">01</div>
+        <h3>حكاية <span class="gold">تُصنع بعناية</span></h3>
+        <p>بدأت ديّار كحلم صغير في ورشة بسيطة. كان الهدف واحداً: نصنع من كل بيت حكاية تُروى. بمرور السنين، أصبح الحلم واقعاً — وكل قطعة نصنعها تحمل جزءاً من تلك الحكاية.</p>
+        <div class="story-controls">
+          <button class="story-btn" onclick="storyNav(-1)">→</button>
+          <button class="story-btn" onclick="storyNav(1)">←</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ العالم 4: الطلب ═══════════ -->
+<div class="world" id="world-order">
+  <div class="world-order">
+    <div class="order-container">
+      <div class="order-header">
+        <div class="num">04 / 05</div>
+        <h2>أخبرنا عن <span style="color:var(--gold)">طلبك</span></h2>
+        <p>سنستمع لك، وسنتواصل معك خلال 24 ساعة</p>
+      </div>
+      <div class="order-box">
+        
+        <div class="order-question">
+          <div class="order-q-label">
+            <span class="num">01</span>
+            <span>ما نوع الطلب؟</span>
+          </div>
+          <div class="order-options" id="order-type">
+            <button class="order-option" onclick="selectOpt(this)">صالونات</button>
+            <button class="order-option" onclick="selectOpt(this)">جلسات</button>
+            <button class="order-option" onclick="selectOpt(this)">ستائر</button>
+            <button class="order-option" onclick="selectOpt(this)">أقمشة</button>
+          </div>
+        </div>
+
+        <div class="order-question">
+          <div class="order-q-label">
+            <span class="num">02</span>
+            <span>من أنت؟</span>
+          </div>
+          <input type="text" class="order-input" placeholder="الاسم الكامل">
+        </div>
+
+        <div class="order-question">
+          <div class="order-q-label">
+            <span class="num">03</span>
+            <span>كيف نتواصل؟</span>
+          </div>
+          <input type="tel" class="order-input" placeholder="+218 91 1234567" dir="ltr">
+        </div>
+
+        <div class="order-question">
+          <div class="order-q-label">
+            <span class="num">04</span>
+            <span>أين أنت؟</span>
+          </div>
+          <input type="text" class="order-input" placeholder="المدينة">
+        </div>
+
+        <button class="order-submit" onclick="alert('تم استلام طلبك!')">
+          إرسال الطلب →
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ العالم 5: المتابعة ═══════════ -->
+<div class="world" id="world-trace">
+  <div class="world-trace">
+    <div class="trace-container">
+      <div class="trace-header">
+        <div class="num">05 / 05</div>
+        <h2>أين وصل <span style="color:var(--gold)">طلبك؟</span></h2>
+      </div>
+      <div class="trace-input-wrap">
+        <input type="text" class="trace-input" placeholder="DR-1234" value="DR-1234">
+        <button class="trace-btn" onclick="alert('جاري البحث...')">تتبع</button>
+      </div>
+      <div class="trace-map">
+        <div class="trace-line">
+          <div class="trace-line-fill"></div>
+        </div>
+        <div class="trace-points">
+          <div class="trace-point done">
+            <div class="trace-point-dot">✓</div>
+            <div class="trace-point-label">قبول</div>
+          </div>
+          <div class="trace-point done">
+            <div class="trace-point-dot">✓</div>
+            <div class="trace-point-label">تجهيز</div>
+          </div>
+          <div class="trace-point current">
+            <div class="trace-point-dot">3</div>
+            <div class="trace-point-label">تفصيل</div>
+          </div>
+          <div class="trace-point">
+            <div class="trace-point-dot">4</div>
+            <div class="trace-point-label">تشطيب</div>
+          </div>
+          <div class="trace-point">
+            <div class="trace-point-dot">5</div>
+            <div class="trace-point-label">جاهز</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ Navigation ═══════════ -->
+<div class="nav-fixed" id="nav">
+  <button class="nav-btn" onclick="go(1)">المساحة</button>
+  <button class="nav-btn" onclick="go(2)">الحكاية</button>
+  <button class="nav-btn" onclick="go(3)">الطلب</button>
+  <button class="nav-btn" onclick="go(4)">المتابعة</button>
+</div>
+
+<script>
+function enter() {
+  document.getElementById('world-enter').classList.remove('active');
+  document.getElementById('world-space').classList.add('active');
+  document.getElementById('nav').classList.add('show');
+  setActiveNav(0);
+  window.scrollTo({top: 0, behavior: 'instant'});
+}
+
+function go(n) {
+  document.querySelectorAll('.world').forEach(w => w.classList.remove('active'));
+  const worlds = ['world-enter', 'world-space', 'world-story', 'world-order', 'world-trace'];
+  document.getElementById(worlds[n]).classList.add('active');
+  setActiveNav(n - 1);
+  window.scrollTo({top: 0, behavior: 'instant'});
+}
+
+function setActiveNav(i) {
+  const btns = document.querySelectorAll('.nav-btn');
+  btns.forEach((b, idx) => b.classList.toggle('active', idx === i));
+}
+
+function selectOpt(el) {
+  el.parentElement.querySelectorAll('.order-option').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function storyNav(dir) {
+  console.log('story nav', dir);
+}
+</script>
+
+</body>
+</html>
