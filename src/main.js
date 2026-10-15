@@ -75,38 +75,23 @@ function showInstant() {
 async function updateFromFirebase() {
   try {
     console.log('📥 جلب البيانات من Firebase...');
-    
-    const [cmsData] = await Promise.all([
-      fetchREST('cms'),
-      fetchREST('orders')
-    ]);
-    
-      // ⏳ انتظر انتهاء الأنترو (1.6 ثانية)
-    setTimeout(() => {
-      if (cmsData) {
-        const mergedCMS = deepMerge(DEFAULT_CMS, cmsData);
-        
-        console.log('✓ CMS وصل');
-        if (mergedCMS.fonts) applyFonts(mergedCMS.fonts);
-        initRouter(mergedCMS);
-      } else {
-        initRouter(DEFAULT_CMS);
-      }
-    }, 1600);
-    
-    // Firebase SDK في الخلفية (لا يوقف)
+    const cmsData = await fetchREST('cms');
+
+    if (cmsData) {
+      const mergedCMS = deepMerge(DEFAULT_CMS, cmsData);
+      console.log('✓ CMS وصل');
+      if (mergedCMS.fonts) applyFonts(mergedCMS.fonts);
+      initRouter(mergedCMS);
+    } else {
+      initRouter(DEFAULT_CMS);
+    }
+
     loadFirebaseSDK();
-    
   } catch (error) {
     console.warn('⚠️ فشل جلب Firebase:', error.message);
-    // حتى في الفشل — انتظر الأنترو
     setTimeout(() => initRouter(DEFAULT_CMS), 1800);
   }
 }
-
-// =============================================
-// 3. Firebase SDK في الخلفية
-// =============================================
 
 async function loadFirebaseSDK() {
   try {
