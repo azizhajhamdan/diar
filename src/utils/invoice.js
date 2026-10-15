@@ -251,9 +251,9 @@ function buildInvoiceHTML(order, qrDataUrl) {
       <div class="inv2-footer">
         <div class="inv2-thanks">شكراً لثقتكم بـ ديّار</div>
         <div class="inv2-contact">
-          <span>${contact.phone || '+218 91 000 0000'}</span>
+          <span>${contact.phone || '+218 944599995'}</span>
           <span class="inv2-sep">·</span>
-          <span>${contact.email || 'hello@diar.ly'}</span>
+          <span>${contact.email || 'Diar.home@hotmail.com'}</span>
         </div>
       </div>
 
