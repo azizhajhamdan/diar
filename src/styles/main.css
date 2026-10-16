@@ -556,17 +556,14 @@ section {
     transform: none !important;
   }
 }
-/* =============================================
-   الهيرو
-   ============================================= */
 
-/* =============================================
-   Hero — البطاقة الزجاجية
-   ============================================= */
-/* ═══ Hero — بطاقة كاملة العرض ═══ */
+/* ═══════════════════════════════════════════════
+   Hero — بطاقة كاملة العرض
+   ═══════════════════════════════════════════════ */
+
 .hero {
   position: relative;
-   padding: 80px 24px 60px;   /* ← كان 100px 16px 60px */
+  padding: 80px 24px 60px;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -581,13 +578,14 @@ section {
   border-radius: 40px;
   overflow: hidden;
   background: var(--bg-secondary);
-  border: 1px solid rgba(201, 168, 80, 0.2);
+  border: 1.5px solid rgba(201, 168, 80, 0.3);
   box-shadow:
-    0 40px 100px -20px rgba(0, 0, 0, 0.6),
-    0 0 60px rgba(201, 168, 80, 0.08);
+    0 40px 100px -20px rgba(0, 0, 0, 0.7),
+    0 0 80px rgba(201, 168, 80, 0.12),
+    inset 0 1px 0 rgba(201, 168, 80, 0.15);
 }
 
-/* صورة الخلفية — Ken Burns + Parallax */
+/* صورة الخلفية — Ken Burns */
 .hero-card-image {
   position: absolute;
   inset: 0;
@@ -596,41 +594,40 @@ section {
   object-fit: cover;
   z-index: 0;
   will-change: transform;
-  transform: scale(1.1);
   animation: kenBurns 20s ease-in-out infinite alternate;
 }
 
 @keyframes kenBurns {
-  0% {
-    transform: translateY(0) scale(1.05);
-  }
-  100% {
-    transform: translateY(-20px) scale(1.15);
-  }
+  0%   { transform: scale(1.05) translateY(0); }
+  100% { transform: scale(1.15) translateY(-20px); }
 }
 
-/* تعتيم متدرج — للنص */
+/* تعتيم متدرج + توهج ذهبي */
 .hero-card-overlay {
   position: absolute;
   inset: 0;
- background: linear-gradient(
-    180deg,
-    rgba(10, 20, 14, 0.2) 0%,
-    rgba(10, 20, 14, 0.5) 50%,
-    rgba(10, 20, 14, 0.9) 100%
-  );
   z-index: 1;
+  background:
+    radial-gradient(circle at 50% 40%, 
+      rgba(201, 168, 80, 0.15) 0%, 
+      transparent 60%),
+    linear-gradient(
+      180deg,
+      rgba(10, 20, 14, 0.35) 0%,
+      rgba(10, 20, 14, 0.6) 50%,
+      rgba(10, 20, 14, 0.95) 100%
+    );
 }
 
-/* الأقواس الذهبية داخل البطاقة */
+/* الأقواس الذهبية */
 .hero-card-arc-left,
 .hero-card-arc-right {
   position: absolute;
-  width: 180px;
-  height: 360px;
+  width: 200px;
+  height: 400px;
   z-index: 2;
   pointer-events: none;
-  opacity: 0.35;
+  opacity: 0.5;
 }
 
 .hero-card-arc-left {
@@ -654,39 +651,44 @@ section {
 .hero-card-content {
   position: relative;
   z-index: 3;
-  padding: 120px 60px;     /* ← كان 80px */
-  min-height: 750px;       /* ← كان 600px */
+  padding: 100px 60px;
+  min-height: 750px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 24px;
+  gap: 20px;
 }
 
 .hero-name {
   font-family: var(--font-logo);
   font-weight: 700;
-  font-size: clamp(60px, 12vw, 130px);
+  font-size: clamp(60px, 12vw, 140px);
   line-height: 0.95;
   letter-spacing: -0.03em;
   color: #ffffff;
-  text-shadow: 0 12px 60px rgba(0, 0, 0, 0.55);
+  text-shadow:
+    0 12px 60px rgba(0, 0, 0, 0.6),
+    0 0 80px rgba(201, 168, 80, 0.15);
   margin: 0;
 }
 
 .hero-name .accent {
   color: var(--gold);
   display: inline-block;
+  text-shadow:
+    0 12px 60px rgba(0, 0, 0, 0.6),
+    0 0 60px rgba(201, 168, 80, 0.4);
 }
 
 .hero-tagline {
   font-family: var(--font-heading);
   font-weight: 500;
-  font-size: clamp(20px, 3.2vw, 38px);
+  font-size: clamp(20px, 3.2vw, 40px);
   line-height: 1.35;
   color: rgba(255, 255, 255, 0.98);
-  text-shadow: 0 6px 30px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 6px 30px rgba(0, 0, 0, 0.5);
 }
 
 .hero-tagline .accent {
@@ -695,7 +697,7 @@ section {
 }
 
 .hero-sub {
-  font-size: clamp(14px, 1.2vw, 16px);
+  font-size: clamp(14px, 1.2vw, 17px);
   color: rgba(255, 255, 255, 0.85);
   line-height: 1.9;
   max-width: 520px;
@@ -710,7 +712,7 @@ section {
   margin-top: 12px;
 }
 
-/* ═══ حركات المحتوى — Fade + Slide ═══ */
+/* حركات المحتوى */
 .hero-anim-1,
 .hero-anim-2,
 .hero-anim-3,
@@ -726,54 +728,39 @@ section {
 .hero-anim-4 { animation-delay: 0.9s; }
 
 @keyframes heroFadeSlide {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* احترام prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-  .hero-card-image {
-    animation: none;
-    transform: none;
-  }
-  
-  .hero-anim-1,
-  .hero-anim-2,
-  .hero-anim-3,
-  .hero-anim-4 {
-    opacity: 1;
-    transform: none;
-    animation: none;
+  .hero-card-image { animation: none; transform: none; }
+  .hero-anim-1, .hero-anim-2, .hero-anim-3, .hero-anim-4 {
+    opacity: 1; transform: none; animation: none;
   }
 }
 
 /* نقاط التحكم */
 .hero-dots {
   position: absolute;
-  bottom: 28px;
+  bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 8px;
+  gap: 10px;
   z-index: 4;
-  padding: 8px 16px;
+  padding: 10px 20px;
   border-radius: 999px;
-  background: rgba(10, 20, 14, 0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(10, 20, 14, 0.5);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(201, 168, 80, 0.15);
 }
 
 .hero-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(201, 168, 80, 0.35);
   border: 0;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -781,58 +768,122 @@ section {
 }
 
 .hero-dot.active {
-  width: 24px;
-  border-radius: 4px;
+  width: 28px;
+  border-radius: 5px;
   background: var(--gold);
+  box-shadow: 0 0 14px rgba(201, 168, 80, 0.6);
 }
 
-/* الموبايل */
+/* ═══ الموبايل ═══ */
 @media (max-width: 768px) {
+  /* الهيرو يبدأ من أعلى الصفحة */
   .hero {
-    padding: 90px 12px 40px;
+    padding: 0;                    /* ← بدون هامش */
+    min-height: 100vh;
+    min-height: 100svh;
+    align-items: stretch;          /* ← البطاقة تتمدد */
   }
   
+  /* البطاقة كاملة الشاشة */
   .hero-card {
-    min-height: 500px;
-    border-radius: 22px;
+    border-radius: 0;              /* ← بدون زوايا مستديرة على الموبايل */
+    min-height: 100vh;
+    min-height: 100svh;
+    border: 0;
+    border-top: 1px solid rgba(201, 168, 80, 0.3);
+    border-bottom: 1px solid rgba(201, 168, 80, 0.3);
+    box-shadow: none;
   }
   
+  /* المحتوى في المنتصف */
   .hero-card-content {
-    padding: 60px 24px;
-    min-height: 500px;
+    padding: 100px 24px 80px;      /* ← 100px فوق (للهيدر) */
+    min-height: 100vh;
+    min-height: 100svh;
+    gap: 12px;
+    justify-content: center;
   }
   
-  .hero-card-arc-left,
-  .hero-card-arc-right {
-    width: 120px;
-    height: 240px;
-  }
-}
-
-
-/* الموبايل */
-@media (max-width: 768px) {
-  .hero {
-    padding: 90px 12px 40px;
+  /* الهيدر — شفاف فوق البطاقة */
+  .header {
+    background: transparent;
+    padding: 14px 0;
   }
   
-  .hero-card {
-    min-height: 600px;        /* ← كان 500px */
-    border-radius: 24px;
+  .header.scrolled {
+    background: rgba(10, 20, 14, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 10px 0;
   }
   
-  .hero-card-content {
-    padding: 70px 24px;       /* ← كان 60px */
-    min-height: 600px;        /* ← كان 500px */
+  /* الشعار */
+  .hero-name {
+    font-size: clamp(72px, 20vw, 100px);
+    text-shadow:
+      0 8px 40px rgba(0, 0, 0, 0.8),
+      0 0 100px rgba(201, 168, 80, 0.35);
+    margin-bottom: 8px;
   }
   
+  .hero-tagline {
+    font-size: clamp(20px, 5vw, 26px);
+  }
+  
+  .hero-sub {
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  
+  /* الأقواس */
   .hero-card-arc-left,
   .hero-card-arc-right {
     width: 140px;
     height: 280px;
+    opacity: 0.7;
+  }
+  
+  /* الأزرار */
+  .hero-cta {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  
+  .hero-cta .btn {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  
+  .hero-cta .btn-primary {
+    background: linear-gradient(135deg, #d4b566, #a88a3a);
+    color: #0f1f14;
+    box-shadow:
+      0 10px 30px rgba(201, 168, 80, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  
+  /* النقاط */
+  .hero-dots {
+    bottom: 30px;
+    padding: 10px 18px;
+    gap: 8px;
+  }
+  
+  .hero-dot {
+    width: 9px;
+    height: 9px;
+  }
+  
+  .hero-dot.active {
+    width: 26px;
   }
 }
-
 /* =============================================
    شريط المزايا
    ============================================= */
@@ -4131,5 +4182,143 @@ select.custom-select option {
   .showcase-arcs::after {
     width: 100px;
     height: 200px;
+  }
+}
+/* ═══════════════════════════════════════════════
+   Hamburger Menu — قائمة الموبايل
+   ═══════════════════════════════════════════════ */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+  z-index: 1001;
+  position: relative;
+}
+
+.hamburger:hover {
+  background: rgba(201, 168, 80, 0.1);
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 2px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center;
+}
+
+/* عند الفتح — يتحول إلى X */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* إظهار Hamburger على الموبايل فقط */
+@media (max-width: 1023px) {
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* ═══ قائمة الموبايل ═══ */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(10, 20, 14, 0.98);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px 40px;
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.mobile-menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.mobile-menu-nav a {
+  display: block;
+  padding: 18px 24px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  border-radius: 16px;
+  background: rgba(201, 168, 80, 0.06);
+  border: 1px solid rgba(201, 168, 80, 0.15);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.mobile-menu.open .mobile-menu-nav a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-menu.open .mobile-menu-nav a:nth-child(1) { transition-delay: 0.1s; }
+.mobile-menu.open .mobile-menu-nav a:nth-child(2) { transition-delay: 0.15s; }
+.mobile-menu.open .mobile-menu-nav a:nth-child(3) { transition-delay: 0.2s; }
+.mobile-menu.open .mobile-menu-nav a:nth-child(4) { transition-delay: 0.25s; }
+.mobile-menu.open .mobile-menu-nav a:nth-child(5) { transition-delay: 0.3s; }
+.mobile-menu.open .mobile-menu-nav a:nth-child(6) { transition-delay: 0.35s; }
+
+.mobile-menu-nav a:hover,
+.mobile-menu-nav a:active {
+  background: rgba(201, 168, 80, 0.15);
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* منع التمرير عند فتح القائمة */
+body:has(.mobile-menu.open) {
+  overflow: hidden;
+}
+
+/* إخفاء القائمة على السطح */
+@media (min-width: 1024px) {
+  .mobile-menu {
+    display: none;
   }
 }
