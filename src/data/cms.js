@@ -60,14 +60,32 @@ export const DEFAULT_CMS = {
       images: []
     }
   ],
-  
-  // المزايا (تحت الهيرو)
-  features: [
-    { icon: 'M20 6 9 17l-5-5', title: 'جودة استثنائية', desc: 'خامات مختارة بعناية' },
-    { icon: 'M12 2v20M2 12h20', title: 'تصنيع مخصص', desc: 'كل طلب حسب مقاسك' },
-    { icon: 'M22 11.08V12a10 10 0 1 1-5.93-9.14', title: 'تسليم في الوقت', desc: 'التزام دقيق بالمواعيد' },
-    { icon: 'M12 2 15 8.5 22 9.3l-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9L9 8.5z', title: 'خدمة راقية', desc: 'تجربة تفوق التوقعات' }
-  ],
+   
+    // الشريط المتحرك (بدل المزايا) — 20 صورة
+  marquee: {
+    items: [
+      { image: '/fabric/fat.1.jpeg', caption: '' },
+      { image: '/fabric/fat.2.jpeg', caption: '' },
+      { image: '/fabric/fat.3.jpeg', caption: '' },
+      { image: '/fabric/fat.4.jpeg', caption: '' },
+      { image: '/fabric/fat.5.jpeg', caption: '' },
+      { image: '/fabric/fat.6.jpeg', caption: '' },
+      { image: '/fabric/fat.7.jpeg', caption: '' },
+      { image: '/fabric/fat.8.jpeg', caption: '' },
+      { image: '/fabric/fat.9.jpeg', caption: '' },
+      { image: '/fabric/fat.10.jpeg', caption: '' },
+      { image: '/salon/sal.1.jpg', caption: '' },
+      { image: '/salon/sal.5.jpg', caption: '' },
+      { image: '/salon/sal.10.jpg', caption: '' },
+      { image: '/salon/sal.15.jpg', caption: '' },
+      { image: '/salon/sal.20.jpg', caption: '' },
+      { image: '/salon/sal.25.jpg', caption: '' },
+      { image: '/salon/sal.30.jpg', caption: '' },
+      { image: '/orgnal/salon.1.jpg', caption: '' },
+      { image: '/orgnal/salon.5.jpg', caption: '' },
+      { image: '/orgnal/salon.10.jpg', caption: '' }
+    ]
+  },
   
   // الأكثر طلباً
   toppicks: [

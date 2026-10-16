@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 1000" preserveAspectRatio="xMinYMid slice">
+  <defs>
+    <!-- تدرج ذهبي أفقي — يبدأ قوي من الحافة ويتلاشى -->
+    <linearGradient id="arcFade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c9a850" stop-opacity="0.4"/>
+      <stop offset="40%" stop-color="#c9a850" stop-opacity="0.18"/>
+      <stop offset="75%" stop-color="#c9a850" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#c9a850" stop-opacity="0"/>
+    </linearGradient>
+    
+    <!-- تدرج ذهبي فاتح — للطبقات الثانوية -->
+    <linearGradient id="arcFadeLight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d4b566" stop-opacity="0.3"/>
+      <stop offset="50%" stop-color="#d4b566" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#d4b566" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 
+    8 أقواس متداخلة — مركزها في الحافة اليسرى (x=0)
+    كل قوس يبدأ من y مختلف وينتهي في y مختلف
+    الانحناء يزداد تدريجياً — الأقواس الخارجية أوسع
+  -->
+  
+  <!-- القوس 1 — الأكبر والأوسع -->
+  <path d="M 0 -100 Q 280 500, 0 1100" 
+        stroke="url(#arcFade)" stroke-width="1.8" fill="none"/>
+  
+  <!-- القوس 2 -->
+  <path d="M 0 -60 Q 245 500, 0 1060" 
+        stroke="url(#arcFadeLight)" stroke-width="1.5" fill="none"/>
+  
+  <!-- القوس 3 -->
+  <path d="M 0 -20 Q 210 500, 0 1020" 
+        stroke="url(#arcFade)" stroke-width="1.4" fill="none"/>
+  
+  <!-- القوس 4 -->
+  <path d="M 0 20 Q 175 500, 0 980" 
+        stroke="url(#arcFadeLight)" stroke-width="1.2" fill="none"/>
+  
+  <!-- القوس 5 -->
+  <path d="M 0 60 Q 140 500, 0 940" 
+        stroke="url(#arcFade)" stroke-width="1.1" fill="none"/>
+  
+  <!-- القوس 6 -->
+  <path d="M 0 100 Q 105 500, 0 900" 
+        stroke="url(#arcFadeLight)" stroke-width="1" fill="none"/>
+  
+  <!-- القوس 7 -->
+  <path d="M 0 140 Q 70 500, 0 860" 
+        stroke="url(#arcFade)" stroke-width="0.85" fill="none"/>
+  
+  <!-- القوس 8 — الأصغر والأقرب للحافة -->
+  <path d="M 0 180 Q 35 500, 0 820" 
+        stroke="url(#arcFadeLight)" stroke-width="0.7" fill="none"/>
+</svg>

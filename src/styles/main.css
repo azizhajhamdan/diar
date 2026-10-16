@@ -1,4 +1,42 @@
 /* =============================================
+   الخطوط المحلية — GE SS + IBM Plex
+   ============================================= */
+
+@font-face {
+  font-family: 'GE SS Unique';
+  src: url('/fonts/GE_SS_Unique_Bold.woff2') format('woff2'),
+       url('/fonts/GE_SS_Unique_Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  src: url('/fonts/IBMPlexSansArabic-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  src: url('/fonts/IBMPlexSansArabic-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  src: url('/fonts/IBMPlexSansArabic-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* =============================================
    الأساسيات
    ============================================= */
 
@@ -10,28 +48,30 @@
 }
 
 :root {
-  --font-logo: 'Reem Kufi', 'Cairo', sans-serif;
-  --font-heading: 'Reem Kufi', sans-serif;
-  --font-body: 'Cairo', sans-serif;
-  --font-sans: 'Inter', sans-serif;
+  /* ═══ الخطوط — الهوية البصرية ═══ */
+  --font-logo:'Reem Kufi', 'Cairo', sans-serif;
+  --font-heading: 'GE SS Unique', 'Cairo', sans-serif;
+  --font-body: 'IBM Plex Sans Arabic', 'Cairo', sans-serif;
+  --font-sans: 'IBM Plex Sans Arabic', 'Inter', sans-serif;
   
-  /* ═══ الألوان - أفتح وأوضح ═══ */
-  --bg-primary: #2a231a;      /* ← بني أفتح (كان #1e1810) */
-  --bg-secondary: #342c22;    /* ← البطاقات أفتح من الخلفية (كان #12100a) */
-  --bg-tertiary: #3a3226;     /* ← الحقول (كان #1a1610) */
-  --text-primary: #ffffff;    /* ← أبيض نقي (كان #fcf8ee) */
-  --text-secondary: #d4c8a8;  /* ← بيج أفتح (كان #c4b898) */
-  --text-muted: #a89e90;      /* ← رمادي فاتح (كان #8a8070) */
-  --gold: #f0c674;            /* ← ذهبي (كما هو) */
-  --gold-dark: #d4a73f;       /* ← ذهبي داكن (كما هو) */
-  --border: rgba(240, 198, 116, 0.12);       /* ← أوضح (كان 0.08) */
-  --border-strong: rgba(240, 198, 116, 0.22); /* ← أوضح (كان 0.15) */
+  /* ═══ الألوان — زيتي + ذهبي (من الهوية) ═══ */
+  --bg-primary: #1a2e1f;      /* زيتي داكن — من الواجهة */
+  --bg-secondary: #0f1f14;    /* زيتي أغمق — من الشعار */
+  --bg-tertiary: #243d2a;     /* زيتي متوسط — للبطاقات */
+  --text-primary: #f5f2e8;    /* كريمي فاتح — من الأكياس */
+  --text-secondary: #d4c8a8;  /* بيج ذهبي */
+  --text-muted: #8a9a82;      /* زيتي فاتح */
+  --gold: #c9a850;            /* ذهبي الهوية */
+  --gold-light: #d4b566;      /* ذهبي فاتح */
+  --gold-dark: #a88a3a;       /* ذهبي داكن */
+  --border: rgba(201, 168, 80, 0.12);
+  --border-strong: rgba(201, 168, 80, 0.25);
   
   /* التأثيرات */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
-  --shadow-soft: 0 20px 60px -20px rgba(0, 0, 0, 0.3);
-  --shadow-strong: 0 30px 80px -30px rgba(0, 0, 0, 0.5);
+  --shadow-soft: 0 20px 60px -20px rgba(0, 0, 0, 0.35);
+  --shadow-strong: 0 30px 80px -30px rgba(0, 0, 0, 0.55);
 }
 
 html {
@@ -41,6 +81,10 @@ html {
 
 body {
   background: var(--bg-primary);
+  background-image: url('/patterns/curves-gold.svg');
+  background-size: 400px 400px;
+  background-position: center;
+  background-attachment: fixed;
   color: var(--text-primary);
   font-family: var(--font-body);
   font-size: 16px;
@@ -50,6 +94,102 @@ body {
   -moz-osx-font-smoothing: grayscale;
   transition: background 0.3s ease, color 0.3s ease;
   min-height: 100vh;
+  position: relative;
+}
+/* ═══ الخلفية الأساسية ═══ */
+body {
+  background: var(--bg-primary);
+  /* توهج ذهبي خفيف في الزوايا */
+  background-image: 
+    radial-gradient(ellipse at 0% 0%, rgba(201, 168, 80, 0.08) 0%, transparent 45%),
+    radial-gradient(ellipse at 100% 100%, rgba(201, 168, 80, 0.08) 0%, transparent 45%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.75;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ═══ الأقواس الذهبية الجانبية ═══ */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 260px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* اليسار — الأقواس من الأعلى للأسفل */
+body::before {
+  left: 0;
+  background-image: url('/patterns/arcs-left.svg');
+  opacity: 0.9;
+}
+
+/* اليمين — معكوسة (من الأسفل للأعلى) */
+body::after {
+  right: 0;
+  background-image: url('/patterns/arcs-right.svg');
+  opacity: 0.9;
+  transform: scaleY(-1);
+}
+/* ═══ حركة توهج ناعمة — تتنفس ═══ */
+@keyframes arcsBreathe {
+  0%, 100% { 
+    opacity: 0.9; 
+  }
+  50% { 
+    opacity: 0.55; 
+  }
+}
+
+body::before {
+  animation: arcsBreathe 8s ease-in-out infinite;
+}
+
+body::after {
+  animation: arcsBreathe 8s ease-in-out infinite 3s;  /* تأخير 4s — تبادل */
+}
+
+/* رفع المحتوى فوق الأقواس */
+#app {
+  position: relative;
+  z-index: 1;
+}
+
+/* الجوال — أقواس أنحف */
+@media (max-width: 768px) {
+  body::before,
+  body::after {
+    width: 120px;
+    opacity: 0.6;
+  }
+}
+
+/* الجوال الصغير — إخفاء الأقواس */
+@media (max-width: 480px) {
+  body::before,
+  body::after {
+    display: none;
+  }
+}
+
+
+/* رفع محتوى الصفحة فوق الأقواس */
+#app {
+  position: relative;
+  z-index: 1;
 }
 
 @media (min-width: 768px) {
@@ -894,7 +1034,7 @@ section {
    ============================================= */
 
 .footer {
-  background: #050402;
+  background:#0a1a0f; 
   color: #fcf8ee;
   padding: 60px 0 32px;
   position: relative;
@@ -2411,7 +2551,7 @@ section {
 }
 
 #intro .logo-big {
-  font-family: var(--font-heading);
+  font-family: var(--font-logo);   /* ← تغيير */
   font-size: clamp(60px, 12vw, 100px);
   font-weight: 700;
   color: var(--gold);
@@ -3347,139 +3487,5 @@ select.custom-select option {
 
 .payment-option span {
   font-size: 13px;
-}
-/* =============================================
-   الثيم الزيتي النهاري - عناصر خاصة
-   ============================================= */
-
-/* الهيدر - خلفية كريمية عند التمرير */
-[data-theme="olive"] .header.scrolled {
-  background: rgba(245, 242, 232, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom-color: rgba(26, 32, 24, 0.08);
-  box-shadow: 0 4px 24px rgba(26, 32, 24, 0.06);
-}
-
-/* الهيدر - نص داكن */
-[data-theme="olive"] .nav-links a {
-  color: #3a4535;
-}
-
-[data-theme="olive"] .nav-links a:hover {
-  color: #8a7040;
-  background: rgba(138, 112, 64, 0.1);
-}
-
-[data-theme="olive"] .icon-btn {
-  color: #3a4535;
-}
-
-[data-theme="olive"] .icon-btn:hover {
-  color: #8a7040;
-  background: rgba(138, 112, 64, 0.1);
-}
-
-/* الهيرو - النص يبقى أبيض (على الصورة) */
-[data-theme="olive"] .hero-name {
-  color: #ffffff;
-}
-
-[data-theme="olive"] .hero-tagline {
-  color: rgba(255, 255, 255, 0.98);
-}
-
-[data-theme="olive"] .hero-sub {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-/* شريط المزايا - خلفية بيضاء */
-[data-theme="olive"] .features-strip .container {
-  background: #ffffff;
-  border: 1px solid rgba(26, 32, 24, 0.1);
-  box-shadow: 0 20px 60px rgba(26, 32, 24, 0.08);
-}
-
-[data-theme="olive"] .feature {
-  background: #faf7f0;
-  border: 1px solid rgba(26, 32, 24, 0.08);
-}
-
-[data-theme="olive"] .feature:hover {
-  border-color: rgba(138, 112, 64, 0.3);
-  background: #ffffff;
-}
-
-/* الأزرار - ذهبية داكنة */
-[data-theme="olive"] .btn-primary {
-  background: linear-gradient(135deg, #8a7040, #6a5530);
-  color: #ffffff;
-  border-color: rgba(138, 112, 64, 0.5);
-  box-shadow: 
-    0 4px 12px rgba(138, 112, 64, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-[data-theme="olive"] .btn-primary:hover {
-  background: linear-gradient(135deg, #6a5530, #4a3a1a);
-  box-shadow: 
-    0 12px 30px -8px rgba(138, 112, 64, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-[data-theme="olive"] .btn-outline {
-  background: rgba(255, 255, 255, 0.8);
-  border-color: rgba(26, 32, 24, 0.2);
-  color: #1a2018;
-}
-
-[data-theme="olive"] .btn-outline:hover {
-  background: #ffffff;
-  border-color: #8a7040;
-  color: #8a7040;
-}
-
-/* الفوتر - يبقى داكناً */
-[data-theme="olive"] .footer {
-  background: #1a2018;
-  color: #f5f2e8;
-}
-
-[data-theme="olive"] .footer::before {
-  background: linear-gradient(to right, transparent, #d4a73f 50%, transparent);
-}
-
-/* Scrollbar */
-[data-theme="olive"] ::-webkit-scrollbar-track {
-  background: #ebe5d5;
-}
-
-[data-theme="olive"] ::-webkit-scrollbar-thumb {
-  background: #8a7040;
-}
-
-[data-theme="olive"] ::-webkit-scrollbar-thumb:hover {
-  background: #6a5530;
-}
-
-/* التحديد */
-[data-theme="olive"] ::selection {
-  background: #8a7040;
-  color: #ffffff;
-}
-
-/* بطاقات الأقسام - خلفية بيضاء */
-[data-theme="olive"] .category-card {
-  box-shadow: 0 8px 30px rgba(26, 32, 24, 0.12);
-}
-
-/* بطاقات الأكثر طلباً */
-[data-theme="olive"] .feature-card {
-  box-shadow: 0 8px 30px rgba(26, 32, 24, 0.12);
-}
-
-/* المعرض */
-[data-theme="olive"] .gallery-item {
-  box-shadow: 0 8px 30px rgba(26, 32, 24, 0.12);
 }
 

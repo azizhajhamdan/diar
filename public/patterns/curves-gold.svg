@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 800" preserveAspectRatio="xMaxYMid meet">
+  <defs>
+    <linearGradient id="arcGold" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#c9a850" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#c9a850" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#c9a850" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 8 أقواس — مركزها في الحافة اليمنى (x=200) -->
+  <!-- تنحني للداخل باتجاه اليسار -->
+  <!-- معكوسة — كل قوس يبدأ من نقطة مختلفة على الحافة -->
+  
+  <!-- قوس 1 -->
+  <path d="M 200 -50 Q 20 400, 200 850" 
+        stroke="url(#arcGold)" stroke-width="1.5" fill="none"/>
+  
+  <!-- قوس 2 -->
+  <path d="M 200 -30 Q 40 400, 200 830" 
+        stroke="url(#arcGold)" stroke-width="1.4" fill="none"/>
+  
+  <!-- قوس 3 -->
+  <path d="M 200 -10 Q 60 400, 200 810" 
+        stroke="url(#arcGold)" stroke-width="1.3" fill="none"/>
+  
+  <!-- قوس 4 -->
+  <path d="M 200 10 Q 80 400, 200 790" 
+        stroke="url(#arcGold)" stroke-width="1.2" fill="none"/>
+  
+  <!-- قوس 5 -->
+  <path d="M 200 30 Q 100 400, 200 770" 
+        stroke="url(#arcGold)" stroke-width="1.1" fill="none"/>
+  
+  <!-- قوس 6 -->
+  <path d="M 200 50 Q 120 400, 200 750" 
+        stroke="url(#arcGold)" stroke-width="1" fill="none"/>
+  
+  <!-- قوس 7 -->
+  <path d="M 200 70 Q 140 400, 200 730" 
+        stroke="url(#arcGold)" stroke-width="0.9" fill="none"/>
+  
+  <!-- قوس 8 -->
+  <path d="M 200 90 Q 160 400, 200 710" 
+        stroke="url(#arcGold)" stroke-width="0.8" fill="none"/>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 1000" preserveAspectRatio="xMaxYMid slice">
+  <defs>
+    <!-- تدرج ذهبي — من اليمين نحو اليسار -->
+    <linearGradient id="arcFade" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#c9a850" stop-opacity="0.4"/>
+      <stop offset="40%" stop-color="#c9a850" stop-opacity="0.18"/>
+      <stop offset="75%" stop-color="#c9a850" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#c9a850" stop-opacity="0"/>
+    </linearGradient>
+    
+    <linearGradient id="arcFadeLight" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#d4b566" stop-opacity="0.3"/>
+      <stop offset="50%" stop-color="#d4b566" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#d4b566" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 
+    8 أقواس — من الحافة اليمنى (x=300)
+    معكوسة — كل قوس يبدأ من y مختلف
+  -->
+  
+  <path d="M 300 -100 Q 20 500, 300 1100" 
+        stroke="url(#arcFade)" stroke-width="1.8" fill="none"/>
+  
+  <path d="M 300 -60 Q 55 500, 300 1060" 
+        stroke="url(#arcFadeLight)" stroke-width="1.5" fill="none"/>
+  
+  <path d="M 300 -20 Q 90 500, 300 1020" 
+        stroke="url(#arcFade)" stroke-width="1.4" fill="none"/>
+  
+  <path d="M 300 20 Q 125 500, 300 980" 
+        stroke="url(#arcFadeLight)" stroke-width="1.2" fill="none"/>
+  
+  <path d="M 300 60 Q 160 500, 300 940" 
+        stroke="url(#arcFade)" stroke-width="1.1" fill="none"/>
+  
+  <path d="M 300 100 Q 195 500, 300 900" 
+        stroke="url(#arcFadeLight)" stroke-width="1" fill="none"/>
+  
+  <path d="M 300 140 Q 230 500, 300 860" 
+        stroke="url(#arcFade)" stroke-width="0.85" fill="none"/>
+  
+  <path d="M 300 180 Q 265 500, 300 820" 
+        stroke="url(#arcFadeLight)" stroke-width="0.7" fill="none"/>
+</svg>
