@@ -19,12 +19,12 @@ export function buildHomePage(cms) {
   const main = el('main');
   main.appendChild(buildHero(cms.hero));
   
-  if (cms.visibility?.features !== false) {
-    main.appendChild(buildFeatures(cms.features));
-  }
-  
   if (cms.visibility?.categories !== false) {
     main.appendChild(buildCategories(cms.categories));
+  }
+  
+  if (cms.visibility?.features !== false) {
+    main.appendChild(buildFeatures(cms.features));
   }
   
   if (cms.visibility?.toppicks !== false) {
@@ -58,29 +58,45 @@ export function buildHomePage(cms) {
 function buildHero(heroData) {
   const section = el('section', { class: 'hero', id: 'home' });
   
-  const bg = el('div', { class: 'hero-bg' });
+  // ═══ البطاقة الكاملة ═══
+  const card = el('div', { class: 'hero-card' });
+  
+  // ═══ صورة الخلفية (كامل البطاقة) ═══
   if (heroData.image) {
     const img = el('img', {
+      class: 'hero-card-image',
       src: withCacheBuster(heroData.image),
-      alt: heroData.brand
+      alt: heroData.brand,
+      loading: 'eager',
+      fetchpriority: 'high'
     });
-    bg.appendChild(img);
+    card.appendChild(img);
   }
-  section.appendChild(bg);
   
-  const inner = el('div', { class: 'hero-inner' });
+  // ═══ طبقة تعتيم ═══
+  card.appendChild(el('div', { class: 'hero-card-overlay' }));
   
-  const name = el('h1', { class: 'hero-name' });
+  // ═══ الأقواس الذهبية ═══
+  card.appendChild(el('div', { class: 'hero-card-arc-left' }));
+  card.appendChild(el('div', { class: 'hero-card-arc-right' }));
+  
+  // ═══ المحتوى ═══
+  const content = el('div', { class: 'hero-card-content' });
+  
+  const name = el('h1', { class: 'hero-name hero-anim-1' });
   name.innerHTML = `${heroData.brand}<span class="accent">.</span>`;
-  inner.appendChild(name);
+  content.appendChild(name);
   
-  const tagline = el('div', { class: 'hero-tagline' });
+  const tagline = el('div', { class: 'hero-tagline hero-anim-2' });
   tagline.innerHTML = `${heroData.tagline} <span class="accent">${heroData.taglineAccent}</span>`;
-  inner.appendChild(tagline);
+  content.appendChild(tagline);
   
-  inner.appendChild(el('p', { class: 'hero-sub' }, [heroData.subtitle]));
+  const sub = el('p', { class: 'hero-sub hero-anim-3' }, [heroData.subtitle]);
+  content.appendChild(sub);
   
-  const cta = el('div', { class: 'hero-cta' });
+  // ═══ الأزرار ═══
+  const cta = el('div', { class: 'hero-cta hero-anim-4' });
+  
   cta.appendChild(el('button', {
     class: 'btn btn-primary btn-lg',
     onclick: () => {
@@ -88,48 +104,233 @@ function buildHero(heroData) {
     }
   }, [heroData.cta1]));
   
- const cta2Btn = el('button', {
-  class: 'btn btn-outline btn-lg hero-cta-secondary',
-  onclick: () => {
-    const el = document.getElementById('gallery');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  }
-}, [heroData.cta2]);
-cta.appendChild(cta2Btn);
+  cta.appendChild(el('button', {
+    class: 'btn btn-outline btn-lg hero-cta-secondary',
+    onclick: () => {
+      const galleryEl = document.getElementById('gallery');
+      if (galleryEl) galleryEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [heroData.cta2]));
   
-  inner.appendChild(cta);
-  section.appendChild(inner);
+  content.appendChild(cta);
+  card.appendChild(content);
+  
+  // ═══ نقاط التحكم ═══
+  const dots = el('div', { class: 'hero-dots' });
+  for (let i = 0; i < 4; i++) {
+    const dot = el('button', {
+      class: `hero-dot ${i === 0 ? 'active' : ''}`,
+      'data-index': i
+    });
+    dots.appendChild(dot);
+  }
+  card.appendChild(dots);
+  
+  section.appendChild(card);
+  
+  // ═══ تهيئة Parallax ═══
+  setTimeout(() => initHeroParallax(), 100);
   
   return section;
 }
 
 // =============================================
-// شريط المزايا
+// Parallax للهيرو
+// =============================================
+
+function initHeroParallax() {
+  const card = document.querySelector('.hero-card-image');
+  const section = document.querySelector('.hero');
+  
+  if (!card || !section) return;
+  
+  let ticking = false;
+  
+  function updateParallax() {
+    const rect = section.getBoundingClientRect();
+    const scrollY = window.scrollY;
+    
+    // فقط عندما الهيرو مرئي
+    if (rect.bottom > 0 && rect.top < window.innerHeight) {
+      const offset = scrollY * 0.15;
+      card.style.transform = `translateY(${offset}px) scale(1.1)`;
+    }
+    
+    ticking = false;
+  }
+  
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }, { passive: true });
+}
+
+
+// =============================================
+// المزايا — بطاقات متحركة
 // =============================================
 
 function buildFeatures(featuresData) {
-  const section = el('section', { class: 'features-strip' });
+  const section = el('section', { class: 'features-showcase', id: 'features' });
   const container = el('div', { class: 'container' });
-  const grid = el('div', { class: 'features-grid' });
   
+  // ═══ العنوان ═══
+  const head = el('div', { class: 'section-head' });
+  head.appendChild(el('span', { class: 'kicker' }, ['لماذا ديّار']));
+  head.appendChild(el('h2', {}, ['تجربة تفوق التوقعات']));
+  head.appendChild(el('p', {}, ['نلتزم بأعلى معايير الجودة في كل تفصيلة']));
+  container.appendChild(head);
+  
+  // ═══ البطاقة الرئيسية ═══
+  const showcase = el('div', { class: 'showcase-card' });
+  
+  // الأقواس
+  showcase.appendChild(el('div', { class: 'showcase-arcs' }));
+  
+  // المحتوى
+  const content = el('div', { class: 'showcase-content' });
+  
+  const iconBox = el('div', { class: 'showcase-icon', id: 'showcase-icon' });
+  content.appendChild(iconBox);
+  
+  const titleEl = el('h3', { class: 'showcase-title', id: 'showcase-title' });
+  content.appendChild(titleEl);
+  
+  const descEl = el('p', { class: 'showcase-desc', id: 'showcase-desc' });
+  content.appendChild(descEl);
+  
+  showcase.appendChild(content);
+  container.appendChild(showcase);
+  
+  // ═══ البطاقات المصغرة ═══
+  const minis = el('div', { class: 'showcase-cards' });
   featuresData.forEach((feature, i) => {
-    const card = el('div', { class: `feature fade-up delay-${Math.min(i + 1, 3)}` });
-    
-    const iconBox = el('div', { class: 'ic' });
-    iconBox.innerHTML = `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="${feature.icon}"/></svg>`;
-    card.appendChild(iconBox);
-    
-    const text = el('div');
-    text.appendChild(el('h4', {}, [feature.title]));
-    text.appendChild(el('p', {}, [feature.desc]));
-    card.appendChild(text);
-    
-    grid.appendChild(card);
+    const mini = el('button', {
+      class: `showcase-mini ${i === 0 ? 'active' : ''}`,
+      'data-index': i
+    });
+    mini.appendChild(el('span', { class: 'showcase-mini-num' }, [`0${i + 1}`]));
+    mini.appendChild(el('span', { class: 'showcase-mini-title' }, [feature.title]));
+    minis.appendChild(mini);
+  });
+  container.appendChild(minis);
+  
+  // ═══ نقاط التحكم ═══
+  const dots = el('div', { class: 'showcase-dots' });
+  featuresData.forEach((_, i) => {
+    const dot = el('button', {
+      class: `showcase-dot ${i === 0 ? 'active' : ''}`,
+      'data-index': i
+    });
+    dots.appendChild(dot);
+  });
+  container.appendChild(dots);
+  
+  section.appendChild(container);
+  
+  // ═══ تهيئة الحركة ═══
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => initShowcase(featuresData));
   });
   
-  container.appendChild(grid);
-  section.appendChild(container);
   return section;
+}
+
+/// =============================================
+// حركة المزايا
+// =============================================
+
+function initShowcase(featuresData) {
+  const iconEl = document.getElementById('showcase-icon');
+  const titleEl = document.getElementById('showcase-title');
+  const descEl = document.getElementById('showcase-desc');
+  const minis = document.querySelectorAll('.showcase-mini');
+  const dots = document.querySelectorAll('.showcase-dot');
+  
+  if (!iconEl || !titleEl || !descEl) return;
+  
+  let currentIndex = 0;
+  let autoPlayTimer = null;
+  
+  function updateShowcase(index) {
+    const feature = featuresData[index];
+    if (!feature) return;
+    
+    // fade-out
+    iconEl.style.opacity = '0';
+    titleEl.style.opacity = '0';
+    descEl.style.opacity = '0';
+    
+    setTimeout(() => {
+      // تحديث المحتوى
+      iconEl.innerHTML = `<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="${feature.icon}"/></svg>`;
+      titleEl.textContent = feature.title;
+      descEl.textContent = feature.desc;
+      
+      // fade-in
+      iconEl.style.opacity = '1';
+      titleEl.style.opacity = '1';
+      descEl.style.opacity = '1';
+      
+      // تحديث الحالة النشطة
+      minis.forEach((m, i) => m.classList.toggle('active', i === index));
+      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+      
+      currentIndex = index;
+    }, 200);
+  }
+  
+  function startAutoPlay() {
+    if (autoPlayTimer) clearInterval(autoPlayTimer);
+    autoPlayTimer = setInterval(() => {
+      const next = (currentIndex + 1) % featuresData.length;
+      updateShowcase(next);
+    }, 4000);
+  }
+  
+  // النقر على البطاقات المصغرة
+  minis.forEach((mini, i) => {
+    mini.addEventListener('click', () => {
+      updateShowcase(i);
+      startAutoPlay();
+    });
+  });
+  
+  // النقر على النقاط
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      updateShowcase(i);
+      startAutoPlay();
+    });
+  });
+  
+  // إيقاف عند الخروج من الشاشة
+  const section = document.getElementById('features');
+  if (section && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          startAutoPlay();
+        } else {
+          if (autoPlayTimer) clearInterval(autoPlayTimer);
+        }
+      });
+    }, { threshold: 0.3 });
+    observer.observe(section);
+  } else {
+    startAutoPlay();
+  }
+  
+  // ═══ العرض الأولي ═══
+  updateShowcase(0);
+
+  // عرض الميزة الأولى فوراً
+  const first = featuresData[0];
+  iconEl.innerHTML = `<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="${first.icon}"/></svg>`;
+  titleEl.textContent = first.title;
+  descEl.textContent = first.desc;
 }
 
 // =============================================
