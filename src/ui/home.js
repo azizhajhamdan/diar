@@ -275,6 +275,7 @@ function initHeroSlider() {
 // =============================================
 
 function buildFeatures(featuresData) {
+  if (!featuresData || !Array.isArray(featuresData)) return el('div');
   const section = el('section', { class: 'features-strip', id: 'features' });
   const container = el('div', { class: 'container' });
   
