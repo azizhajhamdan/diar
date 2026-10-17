@@ -1,0 +1,10 @@
+# ديّار للمفروشات
+
+> صالونات، جلسات، ستائر، وأقمشة فاخرة — تصنيع متكامل.
+
+## الأقسام
+- [الصالونات](https://diar.homee.workers.dev/#categories)
+- [الأكثر طلباً](https://diar.homee.workers.dev/#toppicks)
+- [عن ديّار](https://diar.homee.workers.dev/#about)
+- [أعمالنا](https://diar.homee.workers.dev/#gallery)
+- [احجز الآن](https://diar.homee.workers.dev/#booking)
