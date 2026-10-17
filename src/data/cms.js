@@ -12,14 +12,22 @@ import { readData, writeData, listenData } from './firebase.js';
 export const DEFAULT_CMS = {
   // الهيرو (القسم الرئيسي)
   hero: {
-    brand: 'ديّار',
-    tagline: 'نصنع من المكان',
-    taglineAccent: 'حكاية',
-    subtitle: 'صالونات، جلسات، ستائر وأقمشة فاخرة — جودة عالية وتفاصيل دقيقة تُروي قصة كل بيت.',
-    cta1: 'احجز طلبك',
-    cta2: 'شاهد أعمالنا',
-    image: ''
-  },
+  brand: 'ديّار',
+  tagline: 'نصنع من المكان',
+  taglineAccent: 'حكاية',
+  subtitle: 'صالونات، جلسات، ستائر وأقمشة فاخرة.',
+  cta1: 'احجز طلبك',
+  cta2: 'شاهد أعمالنا',
+  image: 'https://firebasestorage.googleapis.com/...',
+  images: [              // ← أضف هذا
+    '/salon/sal.1.jpg',
+    '/salon/sal.5.jpg',
+    '/salon/sal.10.jpg',
+    '/orgnal/salon.1.jpg',
+    '/salon/sal.15.jpg'
+  ]
+},
+
   
   // الأقسام الرئيسية
   categories: [
@@ -61,31 +69,7 @@ export const DEFAULT_CMS = {
     }
   ],
    
-    // الشريط المتحرك (بدل المزايا) — 20 صورة
-  marquee: {
-    items: [
-      { image: '/fabric/fat.1.jpeg', caption: '' },
-      { image: '/fabric/fat.2.jpeg', caption: '' },
-      { image: '/fabric/fat.3.jpeg', caption: '' },
-      { image: '/fabric/fat.4.jpeg', caption: '' },
-      { image: '/fabric/fat.5.jpeg', caption: '' },
-      { image: '/fabric/fat.6.jpeg', caption: '' },
-      { image: '/fabric/fat.7.jpeg', caption: '' },
-      { image: '/fabric/fat.8.jpeg', caption: '' },
-      { image: '/fabric/fat.9.jpeg', caption: '' },
-      { image: '/fabric/fat.10.jpeg', caption: '' },
-      { image: '/salon/sal.1.jpg', caption: '' },
-      { image: '/salon/sal.5.jpg', caption: '' },
-      { image: '/salon/sal.10.jpg', caption: '' },
-      { image: '/salon/sal.15.jpg', caption: '' },
-      { image: '/salon/sal.20.jpg', caption: '' },
-      { image: '/salon/sal.25.jpg', caption: '' },
-      { image: '/salon/sal.30.jpg', caption: '' },
-      { image: '/orgnal/salon.1.jpg', caption: '' },
-      { image: '/orgnal/salon.5.jpg', caption: '' },
-      { image: '/orgnal/salon.10.jpg', caption: '' }
-    ]
-  },
+    
   
   // الأكثر طلباً
   toppicks: [

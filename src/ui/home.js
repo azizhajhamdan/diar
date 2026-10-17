@@ -61,17 +61,25 @@ function buildHero(heroData) {
   // ═══ البطاقة الكاملة ═══
   const card = el('div', { class: 'hero-card' });
   
-  // ═══ صورة الخلفية (كامل البطاقة) ═══
-  if (heroData.image) {
+  // ═══ Slider للصور ═══
+  const sliderImages = heroData.images && heroData.images.length > 0
+    ? heroData.images
+    : [heroData.image].filter(Boolean);
+  
+  const slider = el('div', { class: 'hero-slider', id: 'hero-slider' });
+  
+  sliderImages.forEach((src, i) => {
     const img = el('img', {
-      class: 'hero-card-image',
-      src: withCacheBuster(heroData.image),
-      alt: heroData.brand,
-      loading: 'eager',
-      fetchpriority: 'high'
+      class: `hero-slide ${i === 0 ? 'active' : ''}`,
+      src: withCacheBuster(src),
+      alt: `${heroData.brand} - ${i + 1}`,
+      loading: i === 0 ? 'eager' : 'lazy',
+      fetchpriority: i === 0 ? 'high' : 'auto'
     });
-    card.appendChild(img);
-  }
+    slider.appendChild(img);
+  });
+  
+  card.appendChild(slider);
   
   // ═══ طبقة تعتيم ═══
   card.appendChild(el('div', { class: 'hero-card-overlay' }));
@@ -115,58 +123,138 @@ function buildHero(heroData) {
   content.appendChild(cta);
   card.appendChild(content);
   
-  // ═══ نقاط التحكم ═══
-  const dots = el('div', { class: 'hero-dots' });
-  for (let i = 0; i < 4; i++) {
-    const dot = el('button', {
-      class: `hero-dot ${i === 0 ? 'active' : ''}`,
-      'data-index': i
+   // ═══ شريط التحكم (النقاط + زر الإيقاف) ═══
+  if (sliderImages.length > 1) {
+    const controls = el('div', { class: 'hero-controls' });
+    
+    // النقاط
+    const dots = el('div', { class: 'hero-dots', id: 'hero-dots' });
+    sliderImages.forEach((_, i) => {
+      const dot = el('button', {
+        class: `hero-dot ${i === 0 ? 'active' : ''}`,
+        'data-index': i,
+        'aria-label': `الصورة ${i + 1}`
+      });
+      dots.appendChild(dot);
     });
-    dots.appendChild(dot);
+    controls.appendChild(dots);
+    
+    // زر الإيقاف/التشغيل
+    const pauseBtn = el('button', {
+      class: 'hero-pause',
+      id: 'hero-pause',
+      'aria-label': 'إيقاف العرض'
+    });
+    pauseBtn.innerHTML = `
+      <svg class="pause-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+        <rect x="6" y="4" width="4" height="16" rx="1"/>
+        <rect x="14" y="4" width="4" height="16" rx="1"/>
+      </svg>
+      <svg class="play-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="display:none;">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    `;
+    controls.appendChild(pauseBtn);
+    
+    card.appendChild(controls);
   }
-  card.appendChild(dots);
-  
-  section.appendChild(card);
-  
-  // ═══ تهيئة Parallax ═══
-  setTimeout(() => initHeroParallax(), 100);
-  
-  return section;
-}
 
 // =============================================
-// Parallax للهيرو
+// Hero Slider — تبديل الصور تلقائياً
 // =============================================
 
-function initHeroParallax() {
-  const card = document.querySelector('.hero-card-image');
-  const section = document.querySelector('.hero');
+function initHeroSlider() {
+  const slider = document.getElementById('hero-slider');
+  const dots = document.querySelectorAll('.hero-dot');
+  const pauseBtn = document.getElementById('hero-pause');
   
-  if (!card || !section) return;
+  if (!slider) return;
   
-  let ticking = false;
+  const slides = slider.querySelectorAll('.hero-slide');
+  if (slides.length <= 1) return;
   
-  function updateParallax() {
-    const rect = section.getBoundingClientRect();
-    const scrollY = window.scrollY;
-    
-    // فقط عندما الهيرو مرئي
-    if (rect.bottom > 0 && rect.top < window.innerHeight) {
-      const offset = scrollY * 0.15;
-      card.style.transform = `translateY(${offset}px) scale(1.1)`;
-    }
-    
-    ticking = false;
+  let current = 0;
+  let timer = null;
+  let isPaused = false;
+  const DURATION = 5000;
+  
+  function showSlide(index) {
+    slides.forEach((s, i) => s.classList.toggle('active', i === index));
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    current = index;
   }
   
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(updateParallax);
-      ticking = true;
+  function next() {
+    showSlide((current + 1) % slides.length);
+  }
+  
+  function startTimer() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(next, DURATION);
+    isPaused = false;
+    updatePauseBtn();
+  }
+  
+  function stopTimer() {
+    if (timer) clearInterval(timer);
+    timer = null;
+    isPaused = true;
+    updatePauseBtn();
+  }
+  
+  function updatePauseBtn() {
+    if (!pauseBtn) return;
+    const pauseIcon = pauseBtn.querySelector('.pause-icon');
+    const playIcon = pauseBtn.querySelector('.play-icon');
+    
+    if (isPaused) {
+      if (pauseIcon) pauseIcon.style.display = 'none';
+      if (playIcon) playIcon.style.display = 'block';
+      pauseBtn.setAttribute('aria-label', 'تشغيل العرض');
+      pauseBtn.classList.add('paused');
+    } else {
+      if (pauseIcon) pauseIcon.style.display = 'block';
+      if (playIcon) playIcon.style.display = 'none';
+      pauseBtn.setAttribute('aria-label', 'إيقاف العرض');
+      pauseBtn.classList.remove('paused');
     }
-  }, { passive: true });
+  }
+  
+  // النقر على النقاط
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      showSlide(i);
+      if (!isPaused) startTimer();
+    });
+  });
+  
+  // النقر على زر الإيقاف/التشغيل
+  if (pauseBtn) {
+    pauseBtn.addEventListener('click', () => {
+      if (isPaused) {
+        startTimer();
+      } else {
+        stopTimer();
+      }
+    });
+  }
+  
+  // إيقاف عند الخروج من الشاشة
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (!isPaused) startTimer();
+        } else {
+          if (timer) clearInterval(timer);
+        }
+      });
+    }, { threshold: 0.3 });
+    observer.observe(slider);
+  } else {
+    startTimer();
+  }
 }
-
 
 // =============================================
 // المزايا — بطاقات متحركة
@@ -830,5 +918,6 @@ document.addEventListener('keydown', (e) => {
     closeLightbox();
   }
 });
+}
 
 console.log('✓ home.js محمّل');
