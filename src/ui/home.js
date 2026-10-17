@@ -62,9 +62,9 @@ function buildHero(heroData) {
   const card = el('div', { class: 'hero-card' });
   
   // ═══ Slider للصور ═══
-  const sliderImages = heroData.images && heroData.images.length > 0
-    ? heroData.images
-    : [heroData.image].filter(Boolean);
+  const sliderImages = (heroData.images && heroData.images.length > 0) 
+    ? heroData.images 
+    : (heroData.image ? [heroData.image] : []);
   
   const slider = el('div', { class: 'hero-slider', id: 'hero-slider' });
   
@@ -123,11 +123,10 @@ function buildHero(heroData) {
   content.appendChild(cta);
   card.appendChild(content);
   
-   // ═══ شريط التحكم (النقاط + زر الإيقاف) ═══
+  // ═══ شريط التحكم (النقاط + زر الإيقاف) ═══
   if (sliderImages.length > 1) {
     const controls = el('div', { class: 'hero-controls' });
     
-    // النقاط
     const dots = el('div', { class: 'hero-dots', id: 'hero-dots' });
     sliderImages.forEach((_, i) => {
       const dot = el('button', {
@@ -139,7 +138,6 @@ function buildHero(heroData) {
     });
     controls.appendChild(dots);
     
-    // زر الإيقاف/التشغيل
     const pauseBtn = el('button', {
       class: 'hero-pause',
       id: 'hero-pause',
@@ -158,6 +156,22 @@ function buildHero(heroData) {
     
     card.appendChild(controls);
   }
+  
+  section.appendChild(card);
+  
+  // ═══ تهيئة Slider ═══
+  if (sliderImages.length > 1) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (typeof initHeroSlider === 'function') {
+          initHeroSlider();
+        }
+      });
+    });
+  }
+  
+  return section;
+}
 
 // =============================================
 // Hero Slider — تبديل الصور تلقائياً
@@ -918,6 +932,6 @@ document.addEventListener('keydown', (e) => {
     closeLightbox();
   }
 });
-}
+
 
 console.log('✓ home.js محمّل');
