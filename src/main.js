@@ -1,5 +1,5 @@
 // =============================================
-// نقطة الدخول الرئيسية
+// نقطة الدخول الرئيسية — نسخة سريعة
 // =============================================
 
 import './styles/main.css';
@@ -11,7 +11,6 @@ import { initRouter } from './ui/router.js';
 
 console.log('🚀 ديّار - بدء التطبيق');
 
-
 // =============================================
 // تطبيق الخطوط
 // =============================================
@@ -19,8 +18,8 @@ console.log('🚀 ديّار - بدء التطبيق');
 function applyFonts(fonts) {
   if (!fonts) return;
   
-  const heading = fonts.heading || 'Reem Kufi';
-  const body = fonts.body || 'Cairo';
+  const heading = fonts.heading || 'GE SS Unique';
+  const body = fonts.body || 'IBM Plex Sans Arabic';
   
   document.documentElement.style.setProperty('--font-heading', `'${heading}', 'Cairo', sans-serif`);
   document.documentElement.style.setProperty('--font-body', `'${body}', 'Cairo', sans-serif`);
@@ -47,53 +46,59 @@ function deepMerge(target, source) {
 }
 
 // =============================================
-// 1. عرض فوري
+// الأنترو السريع
 // =============================================
 
-function showInstant() {
+function showIntro() {
   const intro = document.getElementById('intro');
-  if (intro) {
-    setTimeout(() => intro.classList.add('phase-1'), 100);
-    setTimeout(() => intro.classList.add('phase-2'), 400);
-    setTimeout(() => intro.classList.add('phase-3'), 800);
-    
-    // ابدأ الإخفاء في نفس لحظة بناء الموقع
-    setTimeout(() => intro.classList.add('hide'), 1600);
-    
-    // إزالة من DOM بعد انتهاء الإخفاء
-    setTimeout(() => {
-      if (intro) intro.style.display = 'none';
-    }, 2200);
-    
-    console.log('⚡ الأنترو');
-  }
+  if (!intro) return;
+  
+  setTimeout(() => intro.classList.add('phase-1'), 50);
+  setTimeout(() => intro.classList.add('phase-2'), 200);
+  setTimeout(() => intro.classList.add('phase-3'), 500);
+  setTimeout(() => intro.classList.add('hide'), 1000);  // ← أسرع (كان 1600)
+  setTimeout(() => {
+    if (intro) intro.style.display = 'none';
+  }, 1500);
+  
+  console.log('⚡ الأنترو');
 }
+
 // =============================================
-// 2. تحديث من Firebase
+// 🚀 ابدأ فوراً — اعرض الواجهة فوراً
 // =============================================
 
-async function updateFromFirebase() {
+// 1) ابدأ الأنترو
+showIntro();
+
+// 2) طبّق الخطوط الافتراضية فوراً
+applyFonts(DEFAULT_CMS.fonts);
+
+// 3) اعرض الموقع مباشرة (بدون انتظار Firebase)
+console.log('⚡ عرض الموقع فوراً بالقيم الافتراضية');
+initRouter(DEFAULT_CMS);
+
+// 4) بعد الأنترو — حمّل Firebase في الخلفية
+setTimeout(async () => {
   try {
-    console.log('📥 جلب البيانات من Firebase...');
+    console.log('📥 جلب البيانات من Firebase (خلفية)...');
     const cmsData = await fetchREST('cms');
-
+    
     if (cmsData) {
       const mergedCMS = deepMerge(DEFAULT_CMS, cmsData);
-      console.log('✓ CMS وصل');
+      console.log('✓ CMS وصل — تحديث المحتوى');
+      
+      // حدّث الخطوط إذا تغيّرت
       if (mergedCMS.fonts) applyFonts(mergedCMS.fonts);
+      
+      // أعد بناء الصفحة بالبيانات الجديدة
       initRouter(mergedCMS);
-    } else {
-      initRouter(DEFAULT_CMS);
     }
-
-    loadFirebaseSDK();
   } catch (error) {
-    console.warn('⚠️ فشل جلب Firebase:', error.message);
-    setTimeout(() => initRouter(DEFAULT_CMS), 1800);
+    console.warn('⚠️ فشل Firebase — الموقع يعمل بالقيم الافتراضية:', error.message);
   }
-}
-
-async function loadFirebaseSDK() {
+  
+  // 5) تحميل Firebase SDK (مستقل)
   try {
     const { initFirebase } = await import('./data/firebase.js');
     const { loadOrders } = await import('./data/orders.js');
@@ -105,7 +110,8 @@ async function loadFirebaseSDK() {
   } catch (error) {
     console.warn('⚠️ Firebase SDK فشل:', error.message);
   }
-}
+}, 1200);  // ← بعد 1.2 ثانية (بعد الأنترو)
+
 // =============================================
 // معالجة ?track=DR-XXXX من QR
 // =============================================
@@ -118,21 +124,17 @@ function handleTrackQuery() {
   
   console.log('🎯 QR Scan detected:', trackId);
   
-  // انتظر حتى يبنى الموقع
   let attempts = 0;
   const maxAttempts = 30;
   
   const tryNavigate = () => {
     attempts++;
     
-    // تحقق من وجود الراوتر
     if (window.__diarRouterReady) {
-      // انتقل لصفحة التتبع
       window.__pendingTrackId = trackId;
       window.dispatchEvent(new CustomEvent('navigate', { detail: 'track' }));
       console.log('✓ تم الانتقال لصفحة التتبع');
       
-      // نظّف URL
       setTimeout(() => {
         window.history.replaceState({}, '', '/#track');
       }, 500);
@@ -150,9 +152,4 @@ function handleTrackQuery() {
   setTimeout(tryNavigate, 500);
 }
 
-// شغّل عند التحميل
 handleTrackQuery();
-
-// 🚀 ابدأ!
-showInstant();
-updateFromFirebase();
