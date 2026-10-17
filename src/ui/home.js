@@ -275,67 +275,38 @@ function initHeroSlider() {
 // =============================================
 
 function buildFeatures(featuresData) {
-  const section = el('section', { class: 'features-showcase', id: 'features' });
+  const section = el('section', { class: 'features-strip', id: 'features' });
   const container = el('div', { class: 'container' });
   
-  // ═══ العنوان ═══
+  // العنوان
   const head = el('div', { class: 'section-head' });
   head.appendChild(el('span', { class: 'kicker' }, ['لماذا ديّار']));
   head.appendChild(el('h2', {}, ['تجربة تفوق التوقعات']));
   head.appendChild(el('p', {}, ['نلتزم بأعلى معايير الجودة في كل تفصيلة']));
   container.appendChild(head);
+
+  // الشبكة (4 بطاقات)
+  const grid = el('div', { class: 'features-grid' });
   
-  // ═══ البطاقة الرئيسية ═══
-  const showcase = el('div', { class: 'showcase-card' });
-  
-  // الأقواس
-  showcase.appendChild(el('div', { class: 'showcase-arcs' }));
-  
-  // المحتوى
-  const content = el('div', { class: 'showcase-content' });
-  
-  const iconBox = el('div', { class: 'showcase-icon', id: 'showcase-icon' });
-  content.appendChild(iconBox);
-  
-  const titleEl = el('h3', { class: 'showcase-title', id: 'showcase-title' });
-  content.appendChild(titleEl);
-  
-  const descEl = el('p', { class: 'showcase-desc', id: 'showcase-desc' });
-  content.appendChild(descEl);
-  
-  showcase.appendChild(content);
-  container.appendChild(showcase);
-  
-  // ═══ البطاقات المصغرة ═══
-  const minis = el('div', { class: 'showcase-cards' });
   featuresData.forEach((feature, i) => {
-    const mini = el('button', {
-      class: `showcase-mini ${i === 0 ? 'active' : ''}`,
-      'data-index': i
-    });
-    mini.appendChild(el('span', { class: 'showcase-mini-num' }, [`0${i + 1}`]));
-    mini.appendChild(el('span', { class: 'showcase-mini-title' }, [feature.title]));
-    minis.appendChild(mini);
+    const card = el('div', { class: 'feature fade-up' });
+    
+    // الأيقونة
+    const iconBox = el('div', { class: 'ic' });
+    iconBox.innerHTML = `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="${feature.icon}"/></svg>`;
+    card.appendChild(iconBox);
+    
+    // النصوص
+    const text = el('div');
+    text.appendChild(el('h3', {}, [feature.title])); // h3 بدلاً من h4 لتحسين SEO
+    text.appendChild(el('p', {}, [feature.desc]));
+    card.appendChild(text);
+    
+    grid.appendChild(card);
   });
-  container.appendChild(minis);
   
-  // ═══ نقاط التحكم ═══
-  const dots = el('div', { class: 'showcase-dots' });
-  featuresData.forEach((_, i) => {
-    const dot = el('button', {
-      class: `showcase-dot ${i === 0 ? 'active' : ''}`,
-      'data-index': i
-    });
-    dots.appendChild(dot);
-  });
-  container.appendChild(dots);
-  
+  container.appendChild(grid);
   section.appendChild(container);
-  
-  // ═══ تهيئة الحركة ═══
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => initShowcase(featuresData));
-  });
   
   return section;
 }
