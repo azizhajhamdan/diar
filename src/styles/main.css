@@ -47,13 +47,14 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-:root {
-  /* ═══ الخطوط — الهوية البصرية ═══ */
-  --font-logo:'Reem Kufi', 'Cairo', sans-serif;
-  --font-heading: 'GE SS Unique', 'Cairo', sans-serif;
+ :root {
+  /* ═══ الخطوط — Reem Kufi للعناوين و IBM Plex للنصوص ═══ */
+  --font-logo: 'Reem Kufi', 'Cairo', sans-serif;
+  --font-heading: 'Reem Kufi', 'Cairo', sans-serif;
   --font-body: 'IBM Plex Sans Arabic', 'Cairo', sans-serif;
   --font-sans: 'IBM Plex Sans Arabic', 'Inter', sans-serif;
   
+  /* ... باقي الألوان كما هي ... */
   /* ═══ الألوان — زيتي + ذهبي (من الهوية) ═══ */
   --bg-primary: #1a2e1f;      /* زيتي داكن — من الواجهة */
   --bg-secondary: #0f1f14;    /* زيتي أغمق — من الشعار */
