@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+<link rel="preload" as="image" href="/salon/sal.1.jpg" fetchpriority="high">
 <head>
   <meta charset="UTF-8" />
   
@@ -31,6 +32,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Preload صورة LCP -->
+<link rel="preload" 
+      as="image" 
+      href="/salon/sal.1.jpg" 
+      fetchpriority="high">
 </head>
 <body>
   <!-- الأنترو -->
@@ -52,16 +58,7 @@
 
   <!-- ═══ 3. html2canvas: ديناميكي فقط عند الحاجة ═══ -->
   <script>
-    window.loadHtml2Canvas = function() {
-      return new Promise((resolve, reject) => {
-        if (window.html2canvas) return resolve(window.html2canvas);
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
-        script.onload = () => resolve(window.html2canvas);
-        script.onerror = reject;
-        document.head.appendChild(script);
-      });
-    };
+    
   </script>
 
   <script type="module" src="/src/main.js"></script>
