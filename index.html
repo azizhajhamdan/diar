@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="gold">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   
@@ -11,7 +11,7 @@
   
   <!-- PWA Manifest -->
   <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#0a0805">
+  <meta name="theme-color" content="#1a2e1f">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="ديّار">
@@ -21,11 +21,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="description" content="ديّار للمفروشات — صالونات، جلسات، ستائر، أقمشة" />
   <title>ديّار للمفروشات</title>
-  
-  <!-- Google Fonts -->
+
+  <!-- ═══ 1. Preload الخطوط المحلية (الأسرع) ═══ -->
+  <link rel="preload" href="/fonts/GE_SS_Unique_Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/IBMPlexSansArabic-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/IBMPlexSansArabic-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- ═══ 2. Google Fonts (خطوط احتياطية فقط) ═══ -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&family=Cairo:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&family=Almarai:wght@300;400;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Changa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- الأنترو -->
@@ -35,7 +40,7 @@
     <div class="logo-wrap">
       <div class="logo-big">ديّار<span class="dot">.</span></div>
       <div class="sub">
-        <div class="en">FURNITURE</div>
+        <div class="en">للمفروشات</div>
         <div class="ar">نصنع من المكان حكاية</div>
       </div>
     </div>
@@ -45,7 +50,19 @@
   <!-- التطبيق -->
   <div id="app"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- ═══ 3. html2canvas: ديناميكي فقط عند الحاجة ═══ -->
+  <script>
+    window.loadHtml2Canvas = function() {
+      return new Promise((resolve, reject) => {
+        if (window.html2canvas) return resolve(window.html2canvas);
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+        script.onload = () => resolve(window.html2canvas);
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+    };
+  </script>
 
   <script type="module" src="/src/main.js"></script>
 </body>
