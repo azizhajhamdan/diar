@@ -3622,3 +3622,21 @@ select.custom-select option {
     border-radius: 60px;
   }
 }
+/* ═══ إصلاح التباين للنصوص الباهتة ═══ */
+.footer .f-label,
+.footer .f-copy,
+.footer .f-contact-item .f-label {
+  color: rgba(242, 233, 220, 0.8) !important; /* كان 0.4-0.5 */
+}
+
+.footer .f-links a,
+.footer .f-about {
+  color: rgba(242, 233, 220, 0.85) !important;
+}
+
+/* نصوص قسم المعرض (صور مختارة) */
+.gallery-preview .section-head p,
+.gallery-preview .section-head .kicker {
+  color: var(--text-primary) !important;
+  font-weight: 600;
+}
