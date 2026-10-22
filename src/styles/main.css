@@ -604,9 +604,10 @@ section {
 }
 
 .feature p {
-  font-size: 12px;
-  color: var(--text-muted);
-  line-height: 1.55;
+  font-size: 14px;
+  color: var(--text-secondary); /* لون أغمق قليلاً */
+  line-height: 1.6;
+  opacity: 1 !important; /* إزالة أي شفافية */
 }
 
 /* =============================================
